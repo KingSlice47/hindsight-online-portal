@@ -1,7 +1,8 @@
 
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronRight, Target, Users, TrendingUp, Award } from 'lucide-react';
+import { ChevronRight, Target, Users, TrendingUp, Award, Calendar, Building2 } from 'lucide-react';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 const Index = () => {
   useEffect(() => {
@@ -61,31 +62,30 @@ const Index = () => {
       {/* About Us Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white" aria-labelledby="about-heading">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="text-center mb-16 animate-on-scroll">
+            <h2 id="about-heading" className="text-3xl md:text-4xl font-bold text-charcoal mb-6">
+              About <span className="text-primary">Hindsight Consulting</span>
+            </h2>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
             <div className="animate-on-scroll">
-              <h2 id="about-heading" className="text-3xl md:text-4xl font-bold text-charcoal mb-6">
-                About <span className="text-primary">Hindsight Consulting</span>
-              </h2>
+              <div className="flex items-center mb-4">
+                <Building2 className="h-8 w-8 text-primary mr-3" aria-hidden="true" />
+                <h3 className="text-2xl font-bold text-charcoal">Our Story</h3>
+              </div>
               <p className="text-lg text-medium-grey mb-6">
-                Founded in 2017 and based in Randburg, South Africa, Hindsight Consulting (Pty) Ltd 
-                has been at the forefront of providing innovative financial and compliance solutions 
-                to small and medium enterprises across the region.
+                Hindsight Consulting (Pty) Ltd is a dynamic, technology-driven accounting and business 
+                administration firm based in Randburg, South Africa. Founded in 2017, we specialize in 
+                delivering tailored financial and compliance solutions to small and medium-sized enterprises 
+                (SMEs) and clients of our strategic partner, Hindsight Consulting, including Tsogang Brands.
               </p>
               <p className="text-lg text-medium-grey mb-8">
-                Our mission is to empower SMEs with technology-driven solutions that simplify complex 
-                financial processes, ensure regulatory compliance, and drive business growth through 
-                strategic insights and expert guidance.
+                Our mission is to empower businesses with seamless, cloud-based accounting services, ensuring 
+                regulatory compliance and financial clarity. With a vision to become a leading online accounting 
+                firm in South Africa, we leverage cutting-edge tools like QuickBooks Online and Draftworx, 
+                combined with a client-centric approach, to drive success.
               </p>
-              <div className="grid grid-cols-2 gap-6">
-                <div className="text-center p-4 bg-light-grey rounded-lg hover-float">
-                  <div className="text-2xl font-bold text-primary mb-2">7+</div>
-                  <div className="text-medium-grey">Years Experience</div>
-                </div>
-                <div className="text-center p-4 bg-light-grey rounded-lg hover-float">
-                  <div className="text-2xl font-bold text-primary mb-2">500+</div>
-                  <div className="text-medium-grey">Clients Served</div>
-                </div>
-              </div>
             </div>
             <div className="animate-on-scroll float-animation">
               <div className="bg-gradient-to-br from-primary to-accent p-8 rounded-2xl text-primary-foreground">
@@ -115,6 +115,123 @@ const Index = () => {
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Company History */}
+          <div className="bg-light-grey rounded-2xl p-8 md:p-12 animate-on-scroll">
+            <div className="flex items-center mb-6">
+              <Calendar className="h-8 w-8 text-primary mr-3" aria-hidden="true" />
+              <h3 className="text-2xl font-bold text-charcoal">Company History</h3>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <h4 className="text-xl font-semibold text-charcoal mb-4">Founded in 2024</h4>
+                <p className="text-medium-grey mb-4">
+                  Established in 2024, Hindsight Online (Pty) Ltd was founded to address the growing 
+                  demand for affordable, tech-driven financial services among South African SMEs. Our 
+                  founders recognized the challenges businesses face in navigating complex regulations 
+                  and set out to create a firm that combines professional expertise with modern technology.
+                </p>
+              </div>
+              <div>
+                <h4 className="text-xl font-semibold text-charcoal mb-4">Strategic Partnerships</h4>
+                <p className="text-medium-grey mb-4">
+                  From our inception, we established a key partnership with Hindsight Consulting, enabling 
+                  us to serve clients such as Tsogang Brands with specialized accounting and administrative 
+                  support. Our partnership with Afrilink Telecoms enhances our offerings by providing 
+                  website development, hosting, and email services at preferential rates.
+                </p>
+              </div>
+            </div>
+            <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="text-center p-4 bg-white rounded-lg hover-float">
+                <div className="text-2xl font-bold text-primary mb-2">7+</div>
+                <div className="text-medium-grey text-sm">Years Experience</div>
+              </div>
+              <div className="text-center p-4 bg-white rounded-lg hover-float">
+                <div className="text-2xl font-bold text-primary mb-2">500+</div>
+                <div className="text-medium-grey text-sm">Clients Served</div>
+              </div>
+              <div className="text-center p-4 bg-white rounded-lg hover-float">
+                <div className="text-2xl font-bold text-primary mb-2">6</div>
+                <div className="text-medium-grey text-sm">Industries</div>
+              </div>
+              <div className="text-center p-4 bg-white rounded-lg hover-float">
+                <div className="text-2xl font-bold text-primary mb-2">2024</div>
+                <div className="text-medium-grey text-sm">Online Launch</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Team Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white" aria-labelledby="team-heading">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16 animate-on-scroll">
+            <h2 id="team-heading" className="text-3xl md:text-4xl font-bold text-charcoal mb-6">
+              Our <span className="text-primary">Team</span>
+            </h2>
+            <p className="text-xl text-medium-grey max-w-3xl mx-auto">
+              Hindsight Online is powered by a dedicated, experienced team committed to delivering exceptional service
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Sipho Mampe */}
+            <div className="bg-light-grey rounded-2xl p-8 text-center hover-float animate-on-scroll stagger-1">
+              <div className="mb-6">
+                <Avatar className="w-32 h-32 mx-auto mb-4">
+                  <AvatarImage src="/placeholder.svg" alt="Sipho Mampe" />
+                  <AvatarFallback className="text-2xl bg-primary text-primary-foreground">SM</AvatarFallback>
+                </Avatar>
+              </div>
+              <h3 className="text-xl font-bold text-charcoal mb-2">Sipho Mampe</h3>
+              <p className="text-primary font-semibold mb-4">Chairman / Director</p>
+              <p className="text-medium-grey">
+                Brings extensive expertise in financial strategy and compliance. Sipho oversees operations 
+                and fosters relationships with Hindsight Consulting and its clients.
+              </p>
+            </div>
+
+            {/* Dineo Rametsi */}
+            <div className="bg-light-grey rounded-2xl p-8 text-center hover-float animate-on-scroll stagger-2">
+              <div className="mb-6">
+                <Avatar className="w-32 h-32 mx-auto mb-4">
+                  <AvatarImage src="/placeholder.svg" alt="Dineo Rametsi" />
+                  <AvatarFallback className="text-2xl bg-primary text-primary-foreground">DR</AvatarFallback>
+                </Avatar>
+              </div>
+              <h3 className="text-xl font-bold text-charcoal mb-2">Dineo Rametsi</h3>
+              <p className="text-primary font-semibold mb-4">Accountant</p>
+              <p className="text-medium-grey">
+                A skilled leader in financial management, Dineo drives client account oversight and provides 
+                strategic direction to ensure operational excellence.
+              </p>
+            </div>
+
+            {/* Ipeleng Mogapi */}
+            <div className="bg-light-grey rounded-2xl p-8 text-center hover-float animate-on-scroll stagger-3">
+              <div className="mb-6">
+                <Avatar className="w-32 h-32 mx-auto mb-4">
+                  <AvatarImage src="/placeholder.svg" alt="Ipeleng Mogapi" />
+                  <AvatarFallback className="text-2xl bg-primary text-primary-foreground">IM</AvatarFallback>
+                </Avatar>
+              </div>
+              <h3 className="text-xl font-bold text-charcoal mb-2">Ipeleng Mogapi</h3>
+              <p className="text-primary font-semibold mb-4">Bookkeeper</p>
+              <p className="text-medium-grey">
+                A versatile team member handling administrative tasks, including CIPC registrations, SARS 
+                eFiling registrations, tender opportunity searches, and accounting support through QuickBooks.
+              </p>
+            </div>
+          </div>
+
+          <div className="text-center mt-12 animate-on-scroll">
+            <p className="text-lg text-medium-grey">
+              Our team operates from a modern office in Ferndale, Randburg, maintaining a professional 
+              atmosphere to accommodate client needs.
+            </p>
           </div>
         </div>
       </section>
