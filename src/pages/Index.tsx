@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, Target, Users, TrendingUp, Award } from 'lucide-react';
+import OnlineProducts from '../components/OnlineProducts';
 
 const Index = () => {
   useEffect(() => {
@@ -57,6 +58,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Online Products Section */}
+      <OnlineProducts />
 
       {/* About Us Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white" aria-labelledby="about-heading">
