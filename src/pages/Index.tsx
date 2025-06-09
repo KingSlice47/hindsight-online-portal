@@ -2,8 +2,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, Target, Users, TrendingUp, Award } from 'lucide-react';
-import OnlineProducts from '../components/OnlineProducts';
-import PricingSection from '../components/PricingSection';
 
 const Index = () => {
   useEffect(() => {
@@ -59,12 +57,6 @@ const Index = () => {
           </div>
         </div>
       </section>
-
-      {/* Online Products Section */}
-      <OnlineProducts />
-
-      {/* Pricing Section */}
-      <PricingSection />
 
       {/* About Us Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white" aria-labelledby="about-heading">
@@ -170,13 +162,22 @@ const Index = () => {
               Our comprehensive digital platform offering accounting, HR, and business management 
               solutions designed specifically for South African SMEs.
             </p>
-            <Link
-              to="/products"
-              className="bg-white text-charcoal px-8 py-3 rounded-lg font-semibold hover:bg-light-grey transition-all duration-300 hover-float focus-ring inline-flex items-center"
-            >
-              Discover Our Products
-              <ChevronRight className="ml-2 h-5 w-5" aria-hidden="true" />
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                to="/products"
+                className="bg-white text-charcoal px-8 py-3 rounded-lg font-semibold hover:bg-light-grey transition-all duration-300 hover-float focus-ring inline-flex items-center"
+              >
+                Discover Our Products
+                <ChevronRight className="ml-2 h-5 w-5" aria-hidden="true" />
+              </Link>
+              <Link
+                to="/pricing"
+                className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-charcoal transition-all duration-300 hover-float focus-ring inline-flex items-center"
+              >
+                View Pricing
+                <ChevronRight className="ml-2 h-5 w-5" aria-hidden="true" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
