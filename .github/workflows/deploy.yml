@@ -1,3 +1,4 @@
+
 name: 🚀 Deploy to cPanel
 on:
   push:
@@ -9,34 +10,46 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🚚 Get latest code
-        uses: actions/checkout@v3
-      - name: Use Node.js 16
-        uses: actions/setup-node@v3
+        uses: actions/checkout@v4
+        
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
         with:
-          node-version: "16"
-      - name: Cache npm dependencies
-        uses: actions/cache@v3
-        id: cache-node-modules
-        with:
-          path: "**/node_modules"
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      - name: 🔨 Install Dependencies
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+          node-version: "20"
+          cache: 'npm'
+          
+      - name: 🔨 Install Dependencies and Build
         run: |
-          npm install esbuild@0.25.0  --save-exact
-          npm install
+          npm ci
           npm run build
-          ls -F
-          ls -al dist
-          # Debugging step to list directory contents
-          # ls -al build || echo "build directory does not exist"
         env:
           CI: false
+          
+      - name: 📁 Verify build output
+        run: |
+          echo "Checking if dist directory exists..."
+          if [ -d "dist" ]; then
+            echo "✅ dist directory found"
+            echo "Contents of dist directory:"
+            ls -la dist/
+          else
+            echo "❌ dist directory not found"
+            echo "Available directories:"
+            ls -la
+            exit 1
+          fi
+          
       - name: 📂 Sync files to server
         if: success()
-        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: dist/
+          local-dir: ./dist/
+          server-dir: ./
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/.DS_Store
