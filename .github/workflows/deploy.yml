@@ -26,6 +26,10 @@ jobs:
           npm install esbuild@0.25.0  --save-exact
           npm install
           npm run build
+          if [ -d build ]; then
+            echo "Error: build directory does not exist after running npm run build"
+            exit 1
+          fi
           git reset --hard
           # Debugging step to list directory contents
           ls -al build || echo "build directory does not exist"
