@@ -27,9 +27,12 @@ jobs:
           npm install
           npm run build
           git reset --hard
+          # Debugging step to list directory contents
+          ls -al build || echo "build directory does not exist"
         env:
           CI: false
       - name: 📂 Sync files to server
+        if: success() && ( -d build )
         uses: SamKirkland/FTP-Deploy-Action@4.3.3
         with:
           server: ${{ secrets.FTP_SERVER }}
