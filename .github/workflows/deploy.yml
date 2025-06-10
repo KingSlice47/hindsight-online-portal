@@ -32,7 +32,7 @@ jobs:
         env:
           CI: false
       - name: 📂 Sync files to server
-        if: success() && ( -d build )
+        if: success()
         uses: SamKirkland/FTP-Deploy-Action@4.3.3
         with:
           server: ${{ secrets.FTP_SERVER }}
