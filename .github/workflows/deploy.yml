@@ -26,13 +26,10 @@ jobs:
           npm install esbuild@0.25.0  --save-exact
           npm install
           npm run build
-          if [ -d build ]; then
-            echo "Error: build directory does not exist after running npm run build"
-            exit 1
-          fi
-          git reset --hard
+          ls -F
+          ls -al dist
           # Debugging step to list directory contents
-          ls -al build || echo "build directory does not exist"
+          # ls -al build || echo "build directory does not exist"
         env:
           CI: false
       - name: 📂 Sync files to server
@@ -42,4 +39,4 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: build/
+          local-dir: dist/
