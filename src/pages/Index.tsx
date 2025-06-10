@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, Target, Users, TrendingUp, Award, Calendar, Building2 } from 'lucide-react';
@@ -294,6 +293,59 @@ const Index = () => {
                 View Pricing
                 <ChevronRight className="ml-2 h-5 w-5" aria-hidden="true" />
               </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Professional Affiliations Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-light-grey" aria-labelledby="affiliations-heading">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 id="affiliations-heading" className="text-3xl md:text-4xl font-bold text-charcoal mb-6 animate-on-scroll">
+            Professional <span className="text-primary">Affiliations</span>
+          </h2>
+          <p className="text-xl text-medium-grey mb-12 max-w-3xl mx-auto animate-on-scroll">
+            We maintain memberships with leading professional bodies to ensure the highest standards of service and compliance.
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* SAIT - South African Institute of Taxation */}
+            <div className="bg-white p-8 rounded-lg shadow-sm hover-float animate-on-scroll stagger-1">
+              <div className="w-24 h-24 mx-auto mb-6 bg-light-grey rounded-lg flex items-center justify-center">
+                <div className="text-primary font-bold text-lg">SAIT</div>
+              </div>
+              <h3 className="text-xl font-semibold text-charcoal mb-3">
+                South African Institute of Taxation
+              </h3>
+              <p className="text-medium-grey text-sm">
+                Committed to excellence in taxation services and staying current with tax legislation and best practices.
+              </p>
+            </div>
+
+            {/* CIBA - Chartered Institute of Business Accountants */}
+            <div className="bg-white p-8 rounded-lg shadow-sm hover-float animate-on-scroll stagger-2">
+              <div className="w-24 h-24 mx-auto mb-6 bg-light-grey rounded-lg flex items-center justify-center">
+                <div className="text-primary font-bold text-lg">CIBA</div>
+              </div>
+              <h3 className="text-xl font-semibold text-charcoal mb-3">
+                Chartered Institute of Business Accountants
+              </h3>
+              <p className="text-medium-grey text-sm">
+                Upholding professional accounting standards and providing expert financial services to businesses.
+              </p>
+            </div>
+
+            {/* SAIPA - South African Institute of Professional Accountants */}
+            <div className="bg-white p-8 rounded-lg shadow-sm hover-float animate-on-scroll stagger-3">
+              <div className="w-24 h-24 mx-auto mb-6 bg-light-grey rounded-lg flex items-center justify-center">
+                <div className="text-primary font-bold text-lg">SAIPA</div>
+              </div>
+              <h3 className="text-xl font-semibold text-charcoal mb-3">
+                South African Institute of Professional Accountants
+              </h3>
+              <p className="text-medium-grey text-sm">
+                Dedicated to professional development and maintaining the highest ethical standards in accounting practices.
+              </p>
             </div>
           </div>
         </div>
