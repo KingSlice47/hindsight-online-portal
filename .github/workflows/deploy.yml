@@ -23,6 +23,7 @@ jobs:
       - name: 🔨 Install Dependencies
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: |
+          npm install esbuild@0.25.0  --save-exact
           npm install
           npm run build
           git reset --hard
