@@ -61,30 +61,46 @@ const Applications = () => {
   ];
 
   return (
-    <main id="main-content" className="min-h-screen py-20">
-      {/* Hero Section */}
-      <section className="px-4 sm:px-6 lg:px-8 mb-20" aria-labelledby="apps-heading">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 id="apps-heading" className="text-4xl md:text-6xl font-bold text-charcoal mb-6 fade-in-up">
+    <main id="main-content" className="min-h-screen">
+      {/* Hero Section with Background Image */}
+      <section 
+        className="relative py-32 px-4 sm:px-6 lg:px-8 bg-cover bg-center bg-no-repeat" 
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')`
+        }}
+        aria-labelledby="apps-heading"
+      >
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-charcoal bg-opacity-75"></div>
+        
+        <div className="max-w-7xl mx-auto text-center relative z-10">
+          <h1 id="apps-heading" className="text-4xl md:text-6xl font-bold text-white mb-6 fade-in-up">
             Explore Our <span className="text-primary">Apps</span>
           </h1>
-          <p className="text-xl text-medium-grey max-w-3xl mx-auto fade-in-up stagger-1">
+          <p className="text-xl text-light-grey max-w-3xl mx-auto fade-in-up stagger-1">
             Powerful applications built specifically for South African SMEs, designed to simplify 
             your business operations and drive growth.
           </p>
         </div>
       </section>
 
-      {/* Applications Grid */}
-      <section className="px-4 sm:px-6 lg:px-8" aria-label="Available applications">
-        <div className="max-w-7xl mx-auto">
+      {/* Applications Grid with Enhanced Background */}
+      <section 
+        className="relative py-20 px-4 sm:px-6 lg:px-8 bg-cover bg-center bg-no-repeat" 
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')`
+        }}
+        aria-label="Available applications"
+      >
+        <div className="absolute inset-0 bg-white bg-opacity-95"></div>
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {applications.map((app, index) => {
               const IconComponent = app.icon;
               return (
                 <article
                   key={app.title}
-                  className={`bg-white rounded-2xl shadow-lg border border-light-grey overflow-hidden hover-float transition-all duration-500 animate-on-scroll ${index % 2 === 0 ? 'stagger-1' : 'stagger-2'}`}
+                  className={`bg-white rounded-2xl shadow-xl border border-light-grey overflow-hidden hover-float transition-all duration-500 animate-on-scroll ${index % 2 === 0 ? 'stagger-1' : 'stagger-2'}`}
                 >
                   {/* App Header */}
                   <div className={`bg-gradient-to-r ${app.color} p-8 text-white relative overflow-hidden`}>
@@ -153,10 +169,17 @@ const Applications = () => {
         </div>
       </section>
 
-      {/* Integration Section */}
-      <section className="px-4 sm:px-6 lg:px-8 mt-20" aria-labelledby="integration-heading">
-        <div className="max-w-7xl mx-auto">
-          <div className="bg-light-grey rounded-2xl p-8 md:p-12 text-center animate-on-scroll">
+      {/* Integration Section with Background */}
+      <section 
+        className="relative py-20 px-4 sm:px-6 lg:px-8 bg-cover bg-center bg-no-repeat" 
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')`
+        }}
+        aria-labelledby="integration-heading"
+      >
+        <div className="absolute inset-0 bg-light-grey bg-opacity-95"></div>
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="bg-white bg-opacity-95 rounded-2xl p-8 md:p-12 text-center animate-on-scroll shadow-lg">
             <h2 id="integration-heading" className="text-3xl md:text-4xl font-bold text-charcoal mb-6">
               Seamless <span className="text-primary">Integration</span>
             </h2>
@@ -165,21 +188,21 @@ const Applications = () => {
               a complete view of your business operations. Experience the power of integrated business management.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-              <div className="bg-white p-6 rounded-lg hover-float">
+              <div className="bg-white p-6 rounded-lg hover-float shadow-sm">
                 <div className="text-primary mb-4">
                   <CheckCircle className="h-8 w-8 mx-auto" aria-hidden="true" />
                 </div>
                 <h3 className="font-semibold text-charcoal mb-2">Real-time Sync</h3>
                 <p className="text-sm text-medium-grey">Data synchronizes instantly across all platforms</p>
               </div>
-              <div className="bg-white p-6 rounded-lg hover-float">
+              <div className="bg-white p-6 rounded-lg hover-float shadow-sm">
                 <div className="text-primary mb-4">
                   <CheckCircle className="h-8 w-8 mx-auto" aria-hidden="true" />
                 </div>
                 <h3 className="font-semibold text-charcoal mb-2">Single Sign-On</h3>
                 <p className="text-sm text-medium-grey">Access all applications with one login</p>
               </div>
-              <div className="bg-white p-6 rounded-lg hover-float">
+              <div className="bg-white p-6 rounded-lg hover-float shadow-sm">
                 <div className="text-primary mb-4">
                   <CheckCircle className="h-8 w-8 mx-auto" aria-hidden="true" />
                 </div>
@@ -191,23 +214,31 @@ const Applications = () => {
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="px-4 sm:px-6 lg:px-8 mt-20" aria-labelledby="cta-heading">
+      {/* Call to Action with Business Background */}
+      <section className="px-4 sm:px-6 lg:px-8 py-20" aria-labelledby="cta-heading">
         <div className="max-w-4xl mx-auto">
-          <div className="bg-gradient-to-r from-primary to-accent rounded-2xl p-8 md:p-12 text-center text-primary-foreground float-delayed">
-            <h2 id="cta-heading" className="text-3xl md:text-4xl font-bold mb-6">
-              Ready to Streamline Your Business?
-            </h2>
-            <p className="text-xl mb-8 opacity-90">
-              Join hundreds of South African SMEs already using our applications to grow their businesses.
-            </p>
-            <a
-              href="/contact"
-              className="bg-white text-charcoal px-8 py-3 rounded-lg font-semibold hover:bg-light-grey transition-all duration-300 hover-float focus-ring inline-flex items-center"
-            >
-              Start Your Free Trial
-              <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
-            </a>
+          <div 
+            className="relative rounded-2xl p-8 md:p-12 text-center text-white bg-cover bg-center"
+            style={{
+              backgroundImage: `url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')`
+            }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent opacity-95 rounded-2xl"></div>
+            <div className="relative z-10">
+              <h2 id="cta-heading" className="text-3xl md:text-4xl font-bold mb-6">
+                Ready to Streamline Your Business?
+              </h2>
+              <p className="text-xl mb-8 opacity-90">
+                Join hundreds of South African SMEs already using our applications to grow their businesses.
+              </p>
+              <a
+                href="/contact"
+                className="bg-white text-charcoal px-8 py-3 rounded-lg font-semibold hover:bg-light-grey transition-all duration-300 hover-float focus-ring inline-flex items-center"
+              >
+                Start Your Free Trial
+                <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
+              </a>
+            </div>
           </div>
         </div>
       </section>

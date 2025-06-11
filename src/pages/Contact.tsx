@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { MapPin, Mail, Phone, Send, CheckCircle } from 'lucide-react';
 import { ContactFormData, FormErrors, validateContactForm, submitContactForm } from '../utils/formUtils';
@@ -90,29 +89,45 @@ const Contact = () => {
   };
 
   return (
-    <main id="main-content" className="min-h-screen py-20">
-      {/* Hero Section */}
-      <section className="px-4 sm:px-6 lg:px-8 mb-20" aria-labelledby="contact-heading">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 id="contact-heading" className="text-4xl md:text-6xl font-bold text-charcoal mb-6 fade-in-up">
+    <main id="main-content" className="min-h-screen">
+      {/* Hero Section with Background Image */}
+      <section 
+        className="relative py-32 px-4 sm:px-6 lg:px-8 bg-cover bg-center bg-no-repeat" 
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')`
+        }}
+        aria-labelledby="contact-heading"
+      >
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-charcoal bg-opacity-75"></div>
+        
+        <div className="max-w-7xl mx-auto text-center relative z-10">
+          <h1 id="contact-heading" className="text-4xl md:text-6xl font-bold text-white mb-6 fade-in-up">
             Get In <span className="text-primary">Touch</span>
           </h1>
-          <p className="text-xl text-medium-grey max-w-3xl mx-auto fade-in-up stagger-1">
+          <p className="text-xl text-light-grey max-w-3xl mx-auto fade-in-up stagger-1">
             Ready to transform your business with our expert financial and compliance solutions? 
             We're here to help you succeed.
           </p>
         </div>
       </section>
 
-      <div className="px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+      {/* Contact Content with Enhanced Background */}
+      <section 
+        className="relative py-20 px-4 sm:px-6 lg:px-8 bg-cover bg-center bg-no-repeat" 
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')`
+        }}
+      >
+        <div className="absolute inset-0 bg-white bg-opacity-95"></div>
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Information */}
             <div className="animate-on-scroll">
               <h2 className="text-3xl font-bold text-charcoal mb-8">Contact Information</h2>
               
               <div className="space-y-8">
-                <div className="flex items-start bg-white p-6 rounded-lg shadow-sm hover-float">
+                <div className="flex items-start bg-white p-6 rounded-lg shadow-lg hover-float">
                   <MapPin className="h-6 w-6 text-primary mr-4 mt-1 flex-shrink-0" aria-hidden="true" />
                   <div>
                     <h3 className="font-semibold text-charcoal mb-2">Our Office</h3>
@@ -124,7 +139,7 @@ const Contact = () => {
                   </div>
                 </div>
 
-                <div className="flex items-start bg-white p-6 rounded-lg shadow-sm hover-float">
+                <div className="flex items-start bg-white p-6 rounded-lg shadow-lg hover-float">
                   <Mail className="h-6 w-6 text-primary mr-4 mt-1 flex-shrink-0" aria-hidden="true" />
                   <div>
                     <h3 className="font-semibold text-charcoal mb-2">Email Us</h3>
@@ -137,7 +152,7 @@ const Contact = () => {
                   </div>
                 </div>
 
-                <div className="flex items-start bg-white p-6 rounded-lg shadow-sm hover-float">
+                <div className="flex items-start bg-white p-6 rounded-lg shadow-lg hover-float">
                   <Phone className="h-6 w-6 text-primary mr-4 mt-1 flex-shrink-0" aria-hidden="true" />
                   <div>
                     <h3 className="font-semibold text-charcoal mb-2">Call Us</h3>
@@ -152,7 +167,7 @@ const Contact = () => {
               </div>
 
               {/* Map */}
-              <div className="mt-8 bg-white rounded-lg shadow-sm overflow-hidden">
+              <div className="mt-8 bg-white rounded-lg shadow-lg overflow-hidden">
                 <div className="aspect-w-16 aspect-h-9 bg-light-grey flex items-center justify-center">
                   <div className="text-center p-8">
                     <MapPin className="h-12 w-12 text-primary mx-auto mb-4" aria-hidden="true" />
@@ -178,7 +193,7 @@ const Contact = () => {
             <div className="animate-on-scroll stagger-1">
               <h2 className="text-3xl font-bold text-charcoal mb-8">Send Us a Message</h2>
               
-              <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+              <form onSubmit={handleSubmit} className="space-y-6 bg-white p-8 rounded-lg shadow-lg" noValidate>
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-charcoal mb-2">
                     Full Name *
@@ -302,17 +317,24 @@ const Contact = () => {
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Business Hours */}
-      <section className="px-4 sm:px-6 lg:px-8 mt-20" aria-labelledby="hours-heading">
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-light-grey rounded-2xl p-8 md:p-12 text-center animate-on-scroll">
+      {/* Business Hours with Background */}
+      <section 
+        className="relative py-20 px-4 sm:px-6 lg:px-8 bg-cover bg-center bg-no-repeat" 
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')`
+        }}
+        aria-labelledby="hours-heading"
+      >
+        <div className="absolute inset-0 bg-light-grey bg-opacity-95"></div>
+        <div className="max-w-4xl mx-auto relative z-10">
+          <div className="bg-white bg-opacity-95 rounded-2xl p-8 md:p-12 text-center animate-on-scroll shadow-lg">
             <h2 id="hours-heading" className="text-3xl font-bold text-charcoal mb-8">
               Business <span className="text-primary">Hours</span>
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-white p-6 rounded-lg">
+              <div className="bg-light-grey p-6 rounded-lg">
                 <h3 className="font-semibold text-charcoal mb-4">Office Hours</h3>
                 <div className="space-y-2 text-medium-grey">
                   <div className="flex justify-between">
@@ -329,7 +351,7 @@ const Contact = () => {
                   </div>
                 </div>
               </div>
-              <div className="bg-white p-6 rounded-lg">
+              <div className="bg-light-grey p-6 rounded-lg">
                 <h3 className="font-semibold text-charcoal mb-4">Emergency Support</h3>
                 <div className="space-y-2 text-medium-grey">
                   <p>For urgent matters outside business hours:</p>

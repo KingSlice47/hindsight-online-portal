@@ -73,30 +73,46 @@ const Products = () => {
   ];
 
   return (
-    <main id="main-content" className="min-h-screen py-20">
-      {/* Hero Section */}
-      <section className="px-4 sm:px-6 lg:px-8 mb-20" aria-labelledby="services-heading">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 id="services-heading" className="text-4xl md:text-6xl font-bold text-charcoal mb-6 fade-in-up">
+    <main id="main-content" className="min-h-screen">
+      {/* Hero Section with Background Image */}
+      <section 
+        className="relative py-32 px-4 sm:px-6 lg:px-8 bg-cover bg-center bg-no-repeat" 
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')`
+        }}
+        aria-labelledby="services-heading"
+      >
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-charcoal bg-opacity-75"></div>
+        
+        <div className="max-w-7xl mx-auto text-center relative z-10">
+          <h1 id="services-heading" className="text-4xl md:text-6xl font-bold text-white mb-6 fade-in-up">
             Our <span className="text-primary">Services</span>
           </h1>
-          <p className="text-xl text-medium-grey max-w-3xl mx-auto fade-in-up stagger-1">
+          <p className="text-xl text-light-grey max-w-3xl mx-auto fade-in-up stagger-1">
             Comprehensive financial and business solutions designed to help South African SMEs thrive 
             in today's competitive marketplace.
           </p>
         </div>
       </section>
 
-      {/* Services Grid */}
-      <section className="px-4 sm:px-6 lg:px-8" aria-label="Service offerings">
-        <div className="max-w-7xl mx-auto">
+      {/* Services Grid with Enhanced Visual Background */}
+      <section 
+        className="relative py-20 px-4 sm:px-6 lg:px-8 bg-cover bg-center bg-no-repeat" 
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')`
+        }}
+        aria-label="Service offerings"
+      >
+        <div className="absolute inset-0 bg-white bg-opacity-95"></div>
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {services.map((service, index) => {
               const IconComponent = service.icon;
               return (
                 <div
                   key={service.title}
-                  className={`bg-white p-6 rounded-xl shadow-sm border border-light-grey hover-float transition-all duration-300 focus:ring-2 focus:ring-primary focus:outline-none animate-on-scroll stagger-${(index % 6) + 1}`}
+                  className={`bg-white p-6 rounded-xl shadow-lg border border-light-grey hover-float transition-all duration-300 focus:ring-2 focus:ring-primary focus:outline-none animate-on-scroll stagger-${(index % 6) + 1}`}
                   tabIndex={0}
                   role="article"
                   aria-labelledby={`service-${index}-title`}
@@ -125,29 +141,37 @@ const Products = () => {
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="px-4 sm:px-6 lg:px-8 mt-20" aria-labelledby="cta-heading">
+      {/* Call to Action with Business Background */}
+      <section className="px-4 sm:px-6 lg:px-8 py-20" aria-labelledby="cta-heading">
         <div className="max-w-4xl mx-auto">
-          <div className="bg-gradient-to-r from-primary to-accent rounded-2xl p-8 md:p-12 text-center text-primary-foreground float-delayed">
-            <h2 id="cta-heading" className="text-3xl md:text-4xl font-bold mb-6">
-              Ready to Transform Your Business?
-            </h2>
-            <p className="text-xl mb-8 opacity-90">
-              Let us help you streamline your financial processes and achieve compliance with ease.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="/contact"
-                className="bg-white text-charcoal px-8 py-3 rounded-lg font-semibold hover:bg-light-grey transition-all duration-300 hover-float focus-ring"
-              >
-                Get Started Today
-              </a>
-              <a
-                href="tel:+27721610801"
-                className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-charcoal transition-all duration-300 hover-float focus-ring"
-              >
-                Call Us: 072 161 0801
-              </a>
+          <div 
+            className="relative rounded-2xl p-8 md:p-12 text-center text-white bg-cover bg-center"
+            style={{
+              backgroundImage: `url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')`
+            }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent opacity-95 rounded-2xl"></div>
+            <div className="relative z-10">
+              <h2 id="cta-heading" className="text-3xl md:text-4xl font-bold mb-6">
+                Ready to Transform Your Business?
+              </h2>
+              <p className="text-xl mb-8 opacity-90">
+                Let us help you streamline your financial processes and achieve compliance with ease.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a
+                  href="/contact"
+                  className="bg-white text-charcoal px-8 py-3 rounded-lg font-semibold hover:bg-light-grey transition-all duration-300 hover-float focus-ring"
+                >
+                  Get Started Today
+                </a>
+                <a
+                  href="tel:+27721610801"
+                  className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-charcoal transition-all duration-300 hover-float focus-ring"
+                >
+                  Call Us: 072 161 0801
+                </a>
+              </div>
             </div>
           </div>
         </div>
