@@ -93,10 +93,17 @@ body {
     color: var(--charcoal);
     text-decoration: none;
     transition: var(--transition);
+    display: flex;
+    align-items: center;
 }
 
 .logo-link:hover {
     color: var(--primary);
+}
+
+.header-logo {
+    height: 40px;
+    margin-right: 10px;
 }
 
 .nav-desktop {
