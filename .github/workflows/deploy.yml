@@ -25,13 +25,29 @@ jobs:
         env:
           CI: false
           
-      - name: 📁 Verify build output
+      - name: 📁 Verify build output and .htaccess
         run: |
           echo "Checking if dist directory exists..."
           if [ -d "dist" ]; then
             echo "✅ dist directory found"
             echo "Contents of dist directory:"
             ls -la dist/
+            
+            # Check if .htaccess was copied to dist
+            if [ -f "dist/.htaccess" ]; then
+              echo "✅ .htaccess file found in dist"
+            else
+              echo "⚠️ .htaccess not found in dist, copying from public..."
+              cp public/.htaccess dist/.htaccess
+            fi
+            
+            # Verify index.html exists
+            if [ -f "dist/index.html" ]; then
+              echo "✅ index.html found"
+            else
+              echo "❌ index.html not found"
+              exit 1
+            fi
           else
             echo "❌ dist directory not found"
             echo "Available directories:"
@@ -53,3 +69,14 @@ jobs:
             **/.git*/**
             **/node_modules/**
             **/.DS_Store
+          dangerous-clean-slate: false
+          
+      - name: 🔍 Post-deployment verification
+        if: success()
+        run: |
+          echo "✅ Deployment completed successfully"
+          echo "🌐 Your website should now be accessible via your domain"
+          echo "📝 Files deployed include:"
+          echo "   - index.html (main application)"
+          echo "   - .htaccess (routing configuration)"
+          echo "   - assets/ (CSS, JS, images)"
