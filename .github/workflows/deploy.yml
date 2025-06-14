@@ -1,5 +1,5 @@
 
-name: 🚀 Deploy to cPanel
+name: 🚀 Deploy Static Website to cPanel
 on:
   push:
     branches:
@@ -12,48 +12,25 @@ jobs:
       - name: 🚚 Get latest code
         uses: actions/checkout@v4
         
-      - name: Use Node.js 20
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: 'npm'
-          
-      - name: 🔨 Install Dependencies and Build
+      - name: 📝 Prepare files for deployment
         run: |
-          npm ci
-          npm run build
-        env:
-          CI: false
-          
-      - name: 📁 Verify build output and .htaccess
-        run: |
-          echo "Checking if dist directory exists..."
-          if [ -d "dist" ]; then
-            echo "✅ dist directory found"
-            echo "Contents of dist directory:"
-            ls -la dist/
-            
-            # Check if .htaccess was copied to dist
-            if [ -f "dist/.htaccess" ]; then
-              echo "✅ .htaccess file found in dist"
-            else
-              echo "⚠️ .htaccess not found in dist, copying from public..."
-              cp public/.htaccess dist/.htaccess
-            fi
-            
-            # Verify index.html exists
-            if [ -f "dist/index.html" ]; then
-              echo "✅ index.html found"
-            else
-              echo "❌ index.html not found"
-              exit 1
-            fi
-          else
-            echo "❌ dist directory not found"
-            echo "Available directories:"
-            ls -la
-            exit 1
+          # The website is now static, so we can deploy files directly.
+          # No build step is necessary.
+          # We'll create a 'deploy' directory to gather all necessary files.
+          mkdir deploy
+          # Copy all HTML files
+          cp *.html deploy/
+          # Copy styles, scripts, and images folders
+          if [ -d "styles" ]; then cp -r styles deploy/; fi
+          if [ -d "scripts" ]; then cp -r scripts deploy/; fi
+          if [ -d "Images" ]; then cp -r Images deploy/; fi
+          # Copy .htaccess from public
+          if [ -f "public/.htaccess" ]; then
+            cp public/.htaccess deploy/
           fi
+          echo "✅ Files prepared for deployment in 'deploy' directory."
+          echo "Contents of deploy directory:"
+          ls -la deploy
           
       - name: 📂 Sync files to server
         if: success()
@@ -62,13 +39,15 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/
+          local-dir: ./deploy/
           server-dir: ./
           exclude: |
             **/.git*
             **/.git*/**
             **/node_modules/**
             **/.DS_Store
+            README.md
+            .github/**
           dangerous-clean-slate: false
           
       - name: 🔍 Post-deployment verification
@@ -76,7 +55,3 @@ jobs:
         run: |
           echo "✅ Deployment completed successfully"
           echo "🌐 Your website should now be accessible via your domain"
-          echo "📝 Files deployed include:"
-          echo "   - index.html (main application)"
-          echo "   - .htaccess (routing configuration)"
-          echo "   - assets/ (CSS, JS, images)"
