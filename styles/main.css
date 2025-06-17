@@ -810,8 +810,7 @@ body {
 }
 
 .fade-in-up {
-    opacity: 0;
-    animation: fadeInUp 0.6s ease-out forwards;
+    animation: fadeInUp 0.8s ease-out forwards;
 }
 
 .stagger-1 {
@@ -1217,10 +1216,16 @@ body {
 }
 
 .popular-badge {
-    position: static;
-    transform: none;
-    display: inline-block;
-    margin-bottom: 20px;
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
 }
 
 .plan-header h3 {
@@ -1384,9 +1389,8 @@ body {
 .logo-placeholder {
     width: 80px;
     height: 80px;
-    background: var(--white);
-    color: var(--primary);
-    border: 2px solid var(--primary);
+    background: var(--primary);
+    color: white;
     border-radius: 50%;
     display: flex;
     align-items: center;
