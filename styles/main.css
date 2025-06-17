@@ -686,6 +686,128 @@ body {
     opacity: 0.95;
 }
 
+/* Sticky CTA Bar */
+.sticky-cta {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: var(--white);
+    padding: 16px 0;
+    transform: translateY(100%);
+    transition: transform var(--transition-smooth);
+    z-index: 1000;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.sticky-cta.show {
+    transform: translateY(0);
+}
+
+.sticky-cta-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    gap: 24px;
+}
+
+.sticky-cta-text {
+    flex: 1;
+}
+
+.sticky-cta-text h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 4px 0;
+}
+
+.sticky-cta-text p {
+    font-size: 14px;
+    margin: 0;
+    opacity: 0.9;
+}
+
+.sticky-cta-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.sticky-cta .btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    min-width: auto;
+}
+
+.sticky-cta .btn-primary {
+    background: var(--white);
+    color: var(--primary);
+}
+
+.sticky-cta .btn-primary:hover {
+    background: var(--light-grey);
+    transform: translateY(-2px);
+}
+
+.sticky-cta .btn-secondary {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid var(--white);
+}
+
+.sticky-cta .btn-secondary:hover {
+    background: var(--white);
+    color: var(--primary);
+}
+
+.sticky-cta-close {
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px;
+    margin-left: 12px;
+    opacity: 0.7;
+    transition: var(--transition);
+}
+
+.sticky-cta-close:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .sticky-cta-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+        padding: 0 16px;
+    }
+    
+    .sticky-cta-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .sticky-cta .btn {
+        width: 100%;
+        max-width: 280px;
+    }
+    
+    .sticky-cta-text h3 {
+        font-size: 16px;
+    }
+    
+    .sticky-cta-text p {
+        font-size: 13px;
+    }
+}
+
 .cta-content {
     position: relative;
     z-index: 10;

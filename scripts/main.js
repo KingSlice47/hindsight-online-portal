@@ -19,6 +19,7 @@ class Website {
         this.setupParallaxEffects();
         this.setupNavbarBehavior();
         this.setupInteractiveElements();
+        this.setupStickyCTA();
     }
 
     // Page Loading Animation
@@ -434,6 +435,59 @@ class Website {
                 }
             });
         });
+    }
+
+    // Sticky CTA Functionality
+    setupStickyCTA() {
+        const stickyCta = document.getElementById('stickyCta');
+        const stickyCtaClose = document.getElementById('stickyCtaClose');
+        
+        if (!stickyCta) return;
+
+        let isCtaDismissed = localStorage.getItem('ctaDismissed') === 'true';
+        let isCtaVisible = false;
+        
+        // Handle close button
+        if (stickyCtaClose) {
+            stickyCtaClose.addEventListener('click', () => {
+                stickyCta.classList.remove('show');
+                isCtaDismissed = true;
+                isCtaVisible = false;
+                localStorage.setItem('ctaDismissed', 'true');
+            });
+        }
+
+        // Show/hide based on scroll position
+        window.addEventListener('scroll', () => {
+            if (isCtaDismissed) return;
+
+            const scrollPosition = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            const footer = document.querySelector('.footer');
+            
+            // Calculate when user is near the bottom (80% of the way down)
+            const scrollPercentage = (scrollPosition + windowHeight) / documentHeight;
+            const shouldShow = scrollPercentage > 0.8;
+            
+            // Only show if footer is visible or user is near bottom
+            let footerVisible = false;
+            if (footer) {
+                const footerRect = footer.getBoundingClientRect();
+                footerVisible = footerRect.top < windowHeight;
+            }
+            
+            if ((shouldShow || footerVisible) && !isCtaVisible && !isCtaDismissed) {
+                stickyCta.classList.add('show');
+                isCtaVisible = true;
+            } else if (!shouldShow && !footerVisible && isCtaVisible) {
+                stickyCta.classList.remove('show');
+                isCtaVisible = false;
+            }
+        });
+
+        // Reset dismissal on page reload (optional - remove if you want it to persist across sessions)
+        // localStorage.removeItem('ctaDismissed');
     }
 
     // Utility Functions
