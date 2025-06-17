@@ -333,7 +333,7 @@ class Website {
 
     // Parallax Effects
     setupParallaxEffects() {
-        const parallaxElements = document.querySelectorAll('.hero-section, .cta-section');
+        const parallaxElements = document.querySelectorAll('.hero-section');
         
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
