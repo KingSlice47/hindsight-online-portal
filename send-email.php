@@ -1,4 +1,12 @@
 <?php
+require_once 'PHPMailer/PHPMailer.php';
+require_once 'PHPMailer/SMTP.php';
+require_once 'PHPMailer/Exception.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 // Contact form email handler for cPanel hosting
 // This script processes the contact form and sends emails to info@hindsightonline.co.za
 
