@@ -810,6 +810,7 @@ body {
 }
 
 .fade-in-up {
+    opacity: 0;
     animation: fadeInUp 0.6s ease-out forwards;
 }
 
@@ -819,6 +820,14 @@ body {
 
 .stagger-2 {
     animation-delay: 0.4s;
+}
+
+.stagger-3 {
+    animation-delay: 0.6s;
+}
+
+.stagger-4 {
+    animation-delay: 0.8s;
 }
 
 /* Responsive Design */
@@ -1208,16 +1217,10 @@ body {
 }
 
 .popular-badge {
-    position: absolute;
-    top: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--primary);
-    color: white;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 600;
+    position: static;
+    transform: none;
+    display: inline-block;
+    margin-bottom: 20px;
 }
 
 .plan-header h3 {
@@ -1381,8 +1384,9 @@ body {
 .logo-placeholder {
     width: 80px;
     height: 80px;
-    background: var(--primary);
-    color: white;
+    background: var(--white);
+    color: var(--primary);
+    border: 2px solid var(--primary);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -1390,6 +1394,7 @@ body {
     font-weight: bold;
     font-size: 1rem;
     margin: 0 auto;
+    transition: var(--transition);
 }
 
 .affiliation-item h3 {
