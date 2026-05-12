@@ -48,54 +48,13 @@ body {
     overflow-x: hidden;
 }
 
-/* Corporate Background Patterns - Unique per page */
-body.page-home {
-    background: linear-gradient(135deg, #f8f9fa 25%, transparent 25%),
-        linear-gradient(225deg, #f8f9fa 25%, transparent 25%),
-        linear-gradient(45deg, #f8f9fa 25%, transparent 25%),
-        linear-gradient(315deg, #f8f9fa 25%, #ffffff 25%);
-    background-position: 40px 0, 40px 0, 0 0, 0 0;
-    background-size: 80px 80px;
-    background-repeat: repeat;
-}
-
-body.page-products {
-    background:
-        repeating-linear-gradient(0deg,
-            transparent,
-            transparent 2px,
-            #f8f9fa 2px,
-            #f8f9fa 4px),
-        repeating-linear-gradient(90deg,
-            transparent,
-            transparent 2px,
-            #f8f9fa 2px,
-            #f8f9fa 4px);
-    background-size: 60px 60px;
-}
-
-body.page-applications {
-    background-image:
-        radial-gradient(circle at 25px 25px, #f0f0f0 2%, transparent 0%),
-        radial-gradient(circle at 75px 75px, #f0f0f0 2%, transparent 0%);
-    background-size: 100px 100px;
-    background-color: #ffffff;
-}
-
-body.page-pricing {
-    background-image: repeating-linear-gradient(45deg,
-            transparent,
-            transparent 10px,
-            #f8f9fa 10px,
-            #f8f9fa 20px);
-}
-
+/* Clean white page backgrounds — section separators handle visual rhythm */
+body.page-home,
+body.page-products,
+body.page-applications,
+body.page-pricing,
 body.page-contact {
-    background-image:
-        linear-gradient(90deg, #f8f9fa 1px, transparent 1px),
-        linear-gradient(#f8f9fa 1px, transparent 1px);
-    background-size: 50px 50px;
-    background-color: #ffffff;
+    background: var(--white);
 }
 
 /* Page Load Animation */
@@ -2272,3 +2231,68 @@ body.page-contact {
                     font-size: 2rem;
                 }
             }
+
+/* ============================================================
+   Section backgrounds & wave separators
+   ------------------------------------------------------------
+   Each section declares its own --section-bg. A wave-shaped
+   ::before pseudo-element sits at the top of every section
+   that follows another section. The wave uses that section's
+   own color via CSS masking, so it visually "rises" up into
+   the section above as a row of soft half-horn shapes.
+   ============================================================ */
+
+main {
+    position: relative;
+    background: var(--white);
+}
+
+main > section {
+    position: relative;
+    z-index: 1;
+}
+
+/* Default per-section background tokens (consumed by the wave) */
+.hero-section { --section-bg: transparent; }
+.about-section { background: var(--white); --section-bg: var(--white); }
+.team-section { background: #f5f7fa; --section-bg: #f5f7fa; }
+.affiliations-section { background: var(--white); --section-bg: var(--white); }
+.partners-section { background: #f5f7fa; --section-bg: #f5f7fa; }
+.services-section { background: #f5f7fa; --section-bg: #f5f7fa; }
+.applications-section { background: #f5f7fa; --section-bg: #f5f7fa; }
+.pricing-section { background: var(--white); --section-bg: var(--white); }
+.faq-section { background: #f5f7fa; --section-bg: #f5f7fa; }
+.contact-section { --section-bg: var(--white); }
+.map-section { background: #f5f7fa; --section-bg: #f5f7fa; }
+.cta-section { --section-bg: var(--primary); }
+
+/* Override earlier solid/gradient on team-section so it reads cleanly with the wave */
+.team-section { background: #f5f7fa !important; }
+
+/* Wave separator — soft half-horn shape that rises from a section
+   into the one above it. Skipped on .hero-section (it's the first
+   section) and on .contact-section (image bg). */
+main > section + section:not(.contact-section)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    transform: translateY(-100%);
+    background-color: var(--section-bg, var(--white));
+    -webkit-mask-image: url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201440%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M0%2064%20L1440%2064%20L1440%2042%20C1380%2042%201380%208%201320%208%20C1260%208%201260%2042%201200%2042%20C1140%2042%201140%208%201080%208%20C1020%208%201020%2042%20960%2042%20C900%2042%20900%208%20840%208%20C780%208%20780%2042%20720%2042%20C660%2042%20660%208%20600%208%20C540%208%20540%2042%20480%2042%20C420%2042%20420%208%20360%208%20C300%208%20300%2042%20240%2042%20C180%2042%20180%208%20120%208%20C60%208%2060%2042%200%2042%20Z%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
+    mask-image: url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201440%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M0%2064%20L1440%2064%20L1440%2042%20C1380%2042%201380%208%201320%208%20C1260%208%201260%2042%201200%2042%20C1140%2042%201140%208%201080%208%20C1020%208%201020%2042%20960%2042%20C900%2042%20900%208%20840%208%20C780%208%20780%2042%20720%2042%20C660%2042%20660%208%20600%208%20C540%208%20540%2042%20480%2042%20C420%2042%20420%208%20360%208%20C300%208%20300%2042%20240%2042%20C180%2042%20180%208%20120%208%20C60%208%2060%2042%200%2042%20Z%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    pointer-events: none;
+    z-index: 2;
+}
+
+@media (max-width: 768px) {
+    main > section + section:not(.contact-section)::before {
+        height: 40px;
+    }
+}
