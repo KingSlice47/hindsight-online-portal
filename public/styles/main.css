@@ -155,12 +155,32 @@ body.page-contact {
     text-decoration: none;
     border-radius: var(--border-radius);
     z-index: 1000;
+}
 
-    .navbar.navbar-scrolled {
-        backdrop-filter: blur(10px);
-        background: rgba(255, 255, 255, 0.95);
-        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-    }
+.skip-link:focus {
+    top: 6px;
+}
+
+/* Navbar base */
+.navbar {
+    position: sticky;
+    top: 0;
+    background: var(--white);
+    border-bottom: 1px solid var(--light-grey);
+    z-index: 100;
+    transition: transform var(--transition-smooth), background-color var(--transition);
+    will-change: transform;
+}
+
+.navbar.navbar-hidden {
+    transform: translateY(-100%);
+}
+
+.navbar.navbar-scrolled {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
 
     .nav-container {
         max-width: var(--container-max-width);
@@ -605,8 +625,6 @@ body.page-contact {
             justify-content: center;
         }
     }
-
-    <<<<<<< HEAD
 
     /* Sections */
     .about-section,
@@ -1906,33 +1924,37 @@ body.page-contact {
         0%,
         100% {
             transform: scale(1);
-            =======
+        }
 
-            /* Floating Elements Animation */
-            @keyframes floatingElements {
+        50% {
+            transform: scale(1.05);
+        }
+    }
 
-                0%,
-                100% {
-                    filter: hue-rotate(0deg);
-                    >>>>>>>a39a92bfd71477a71f78bcdb8e632e8e4e301eb9
-                }
+    /* Floating Elements Animation (used by .hero-section::before) */
+    @keyframes floatingElements {
 
-                50% {
-                    filter: hue-rotate(60deg);
-                }
-            }
+        0%,
+        100% {
+            filter: hue-rotate(0deg);
+        }
 
-            <<<<<<< HEAD @keyframes ripple {
-                0% {
-                    transform: scale(0);
-                    opacity: 1;
-                }
+        50% {
+            filter: hue-rotate(60deg);
+        }
+    }
 
-                100% {
-                    transform: scale(4);
-                    opacity: 0;
-                }
-            }
+    @keyframes ripple {
+        0% {
+            transform: scale(0);
+            opacity: 1;
+        }
+
+        100% {
+            transform: scale(4);
+            opacity: 0;
+        }
+    }
 
             .slide-in-left {
                 animation: slideInLeft 0.8s ease-out forwards;
@@ -2250,9 +2272,3 @@ body.page-contact {
                     font-size: 2rem;
                 }
             }
-
-            =======
-            /* The floatingElements animation is applied together with diagonalSweep on ::before */
-
-            /* The rest of the CSS remains unchanged from the original styles/main.css */
-            >>>>>>>a39a92bfd71477a71f78bcdb8e632e8e4e301eb9
