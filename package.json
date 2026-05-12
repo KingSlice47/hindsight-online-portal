@@ -1,12 +1,16 @@
 {
-  "name": "vite_react_shadcn_ts",
+  "name": "hindsight-online-portal",
+  "version": "1.0.0",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "dependencies": {
-  },
-  "devDependencies": {
+    "astro": "^5.0.0"
   }
 }

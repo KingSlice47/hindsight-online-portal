@@ -1,0 +1,7 @@
+# Copy this file to .dev.vars (gitignored) to test the contact form locally
+# via `wrangler pages dev ./dist`.
+#
+# Get a Resend API key at https://resend.com/api-keys
+RESEND_API_KEY=re_your_api_key_here
+CONTACT_TO_EMAIL=info@hindsightonline.co.za
+CONTACT_FROM_EMAIL=noreply@hindsightonline.co.za

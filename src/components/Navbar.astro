@@ -1,0 +1,56 @@
+---
+interface Props {
+  currentPage: 'home' | 'products' | 'applications' | 'pricing' | 'contact';
+}
+
+const { currentPage } = Astro.props;
+
+const links = [
+  { href: '/', label: 'Home', key: 'home' },
+  { href: '/products', label: 'Products', key: 'products' },
+  { href: '/applications', label: 'Applications', key: 'applications' },
+  { href: '/pricing', label: 'Pricing', key: 'pricing' },
+  { href: '/contact', label: 'Contact', key: 'contact' },
+];
+---
+
+<header class="navbar">
+  <nav class="nav-container">
+    <div class="nav-content">
+      <div class="logo">
+        <a href="/" class="logo-link">
+          <img src="/images/newlogo.png" alt="Hindsight Consulting Logo" class="header-logo" />
+          Hindsight Consulting
+        </a>
+      </div>
+
+      <div class="nav-desktop">
+        {links.map((link) => (
+          <a
+            href={link.href}
+            class={`nav-link${currentPage === link.key ? ' active' : ''}`}
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle mobile menu">
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+      </button>
+    </div>
+
+    <div class="nav-mobile" id="mobileMenu">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          class={`nav-link-mobile${currentPage === link.key ? ' active' : ''}`}
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+  </nav>
+</header>

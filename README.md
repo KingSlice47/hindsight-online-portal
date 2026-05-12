@@ -1,73 +1,65 @@
-# Welcome to your Lovable project
+# Hindsight Online Portal
 
-## Project info
+The marketing website for **Hindsight Consulting (Pty) Ltd**, built with
+[Astro](https://astro.build) and deployed to **Cloudflare Pages**.
 
-**URL**: https://lovable.dev/projects/d7acfb17-fe78-4c34-ae26-9de43994a0e9
+## Stack
 
-## How can I edit this code?
+- **Astro 5** — static site generator
+- **Plain CSS** — single stylesheet (`public/styles/main.css`)
+- **Vanilla JS** — UI behaviours (`public/scripts/main.js`)
+- **Cloudflare Pages** — hosting + CDN
+- **Cloudflare Pages Functions** — server-side contact form handler (`functions/api/contact.js`)
+- **Resend** — transactional email provider
 
-There are several ways of editing your application.
+## Local development
 
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/d7acfb17-fe78-4c34-ae26-9de43994a0e9) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+Requires Node.js 22 (see `.nvmrc`).
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+npm install
+npm run dev       # http://localhost:4321
+npm run build     # output to ./dist
+npm run preview   # serve the built site
 ```
 
-**Edit a file directly in GitHub**
+To test the contact form locally (Pages Functions are not run by `astro dev`):
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```sh
+npm run build
+npx wrangler pages dev ./dist --compatibility-date=2024-11-01
+```
 
-**Use GitHub Codespaces**
+Put local-only env vars in a `.dev.vars` file at the repo root:
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```
+RESEND_API_KEY=re_xxx
+CONTACT_TO_EMAIL=info@hindsightonline.co.za
+CONTACT_FROM_EMAIL=noreply@hindsightonline.co.za
+```
 
-## What technologies are used for this project?
+## Project structure
 
-This project is built with:
+```
+src/
+  pages/         Astro pages (one .astro file per URL)
+  layouts/       BaseLayout.astro wraps every page
+  components/   Navbar, Footer, StickyCTA
+public/          Files served as-is at the site root
+functions/api/   Cloudflare Pages Functions (POST /api/contact)
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Deployment
 
-## How can I deploy this project?
+Cloudflare Pages auto-deploys on push to `main`. Settings:
 
-Simply open [Lovable](https://lovable.dev/projects/d7acfb17-fe78-4c34-ae26-9de43994a0e9) and click on Share -> Publish.
+- Framework preset: **Astro**
+- Build command: `npm run build`
+- Build output directory: `dist`
+- Node version: `22`
 
-## Can I connect a custom domain to my Lovable project?
+Required environment variables in the Cloudflare Pages project:
 
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+- `RESEND_API_KEY`
+- `CONTACT_TO_EMAIL`
+- `CONTACT_FROM_EMAIL`

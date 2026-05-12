@@ -1,0 +1,110 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Applications | Hindsight Consulting"
+  description="Explore our software applications and digital solutions designed for South African SMEs."
+  pageClass="page-applications"
+  currentPage="applications"
+>
+  <!-- Hero Section -->
+  <section class="hero-section applications-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="hero-title fade-in-up">
+          Our <span class="text-primary">Applications</span>
+        </h1>
+        <p class="hero-subtitle fade-in-up stagger-1">
+          Cutting-edge software solutions designed to streamline your business operations and drive growth.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Applications Section -->
+  <section class="applications-section">
+    <div class="container">
+      <div class="applications-grid">
+        <div class="application-card fade-in-up stagger-1">
+          <div class="application-icon">📱</div>
+          <h3>Web Based Accounting App</h3>
+          <p>Manage your finances on the go with our comprehensive accounting solution.</p>
+          <ul class="application-features">
+            <li>Real-time expense tracking</li>
+            <li>Invoice generation</li>
+            <li>Bank reconciliation</li>
+            <li>Financial reporting</li>
+          </ul>
+          <div class="application-status">
+            <span class="status-badge available">Available Now</span>
+          </div>
+        </div>
+
+        <div class="application-card fade-in-up stagger-2">
+          <div class="application-icon">👥</div>
+          <h3>HR Management System</h3>
+          <p>Streamline your human resources processes with our integrated HR platform.</p>
+          <ul class="application-features">
+            <li>Employee onboarding</li>
+            <li>Payroll management</li>
+            <li>Leave management</li>
+            <li>Performance tracking</li>
+          </ul>
+          <div class="application-status">
+            <span class="status-badge available">Coming Soon</span>
+          </div>
+        </div>
+
+        <div class="application-card fade-in-up stagger-3">
+          <div class="application-icon">📊</div>
+          <h3>Business Intelligence Dashboard</h3>
+          <p>Make data-driven decisions with our powerful analytics and reporting tools.</p>
+          <ul class="application-features">
+            <li>Real-time dashboards</li>
+            <li>Custom reports</li>
+            <li>Performance metrics</li>
+            <li>Trend analysis</li>
+          </ul>
+          <div class="application-status">
+            <span class="status-badge coming-soon">Coming Soon</span>
+          </div>
+        </div>
+
+        <div class="application-card fade-in-up stagger-4">
+          <div class="application-icon">🔄</div>
+          <h3>Integration Platform</h3>
+          <p>Connect all your business tools seamlessly with our integration platform.</p>
+          <ul class="application-features">
+            <li>API connections</li>
+            <li>Data synchronization</li>
+            <li>Automated workflows</li>
+            <li>Third-party integrations</li>
+          </ul>
+          <div class="application-status">
+            <span class="status-badge development">In Development</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Ready to Transform Your Business?</h2>
+        <p>Discover how our applications can streamline your operations and boost productivity.</p>
+        <div class="cta-buttons">
+          <a href="/contact" class="btn btn-primary">
+            Get Started Today
+          </a>
+          <a href="/pricing" class="btn btn-secondary">
+            View Pricing
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

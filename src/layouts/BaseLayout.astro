@@ -1,0 +1,59 @@
+---
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import StickyCTA from '../components/StickyCTA.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  pageClass: string;
+  currentPage: 'home' | 'products' | 'applications' | 'pricing' | 'contact';
+  ogTitle?: string;
+  ogDescription?: string;
+}
+
+const {
+  title,
+  description,
+  pageClass,
+  currentPage,
+  ogTitle,
+  ogDescription,
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Hindsight Consulting (Pty) Ltd" />
+    <link rel="icon" type="image/png" href="/images/newlogo-site-tag.png" />
+
+    <meta property="og:title" content={ogTitle ?? title} />
+    <meta property="og:description" content={ogDescription ?? description} />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="stylesheet" href="/styles/main.css" />
+  </head>
+
+  <body class={pageClass}>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <Navbar currentPage={currentPage} />
+
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <StickyCTA />
+
+    <script is:inline src="/scripts/main.js"></script>
+  </body>
+</html>
