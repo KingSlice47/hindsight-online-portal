@@ -140,7 +140,7 @@ Part of the Hindsight Consulting group."), and the postal address:
   Unit 1, Randpark Building
   20 Dover Street, Ferndale
   Randburg, South Africa
-Column 2: Contact heading with accounts@hindsightonline.co.za and 072 161 0801 as
+Column 2: Contact heading with accounts@hindsightonline.co.za and 010 500 8919 as
 mailto and tel links, then a Pages heading listing Products, Applications, Pricing,
 Contact. Column 3: Follow heading with LinkedIn, Facebook and Instagram links opening
 in a new tab with rel="noopener noreferrer".
@@ -413,7 +413,7 @@ Build the contact page at /contact. Three sections.
      - Our office: Unit 1, Randpark Building, 20 Dover Street, Ferndale, Randburg,
        South Africa
      - Email us: accounts@hindsightonline.co.za
-     - Call us: 072 161 0801
+     - Call us: 010 500 8919
    Then business hours as a definition list with the times in mono, right-aligned:
    Monday to Friday 8:00 to 17:00, Saturday 9:00 to 13:00, Sunday closed.
 
