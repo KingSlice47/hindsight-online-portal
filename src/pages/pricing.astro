@@ -1,162 +1,199 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { Icon } from 'astro-icon/components';
+
+const plans = [
+  {
+    name: 'Starter',
+    amount: '1,500',
+    featured: false,
+    features: [
+      'Basic bookkeeping',
+      'Monthly financial statements',
+      'VAT submissions',
+      'Email support',
+    ],
+  },
+  {
+    name: 'Professional',
+    amount: '2,500',
+    featured: true,
+    features: [
+      'Complete bookkeeping',
+      'Monthly financial statements',
+      'VAT and PAYE submissions',
+      'Income tax returns',
+      'Business registration support',
+      'Phone and email support',
+    ],
+  },
+  {
+    name: 'Enterprise',
+    amount: '4,000',
+    featured: false,
+    features: [
+      'Full accounting services',
+      'Financial statement compilation',
+      'Complete tax compliance',
+      'Business administration',
+      'Tender opportunities',
+      'Priority support',
+      'Dedicated account manager',
+    ],
+  },
+];
+
+const addons = [
+  {
+    name: 'Social Media Management',
+    note: 'Professional social media presence across all platforms.',
+    price: 'R800 / month',
+  },
+  {
+    name: 'Website Development',
+    note: 'Custom website design and development.',
+    price: 'From R5,000',
+  },
+  {
+    name: 'Mobile Apps',
+    note: 'Access to our mobile accounting and HR applications.',
+    price: 'R500 / month',
+  },
+];
+
+const faqs = [
+  {
+    q: "What's included in all plans?",
+    a: 'All plans include basic bookkeeping, monthly financial statements, and email support. Higher tiers add more comprehensive services.',
+  },
+  {
+    q: 'Can I upgrade my plan?',
+    a: 'Yes, you can upgrade or downgrade your plan at any time. Changes take effect at the next billing cycle.',
+  },
+  {
+    q: 'Do you offer custom solutions?',
+    a: 'Yes. We can tailor our services to meet your specific business requirements. Contact us for a custom quote.',
+  },
+  {
+    q: 'What payment methods do you accept?',
+    a: 'We accept bank transfers, debit orders, and credit card payments.',
+  },
+];
 ---
 
 <BaseLayout
-  title="Pricing | Hindsight Consulting"
+  title="Pricing | Hindsight Online"
   description="Transparent pricing for our financial and compliance solutions. Choose the plan that fits your business needs."
   pageClass="page-pricing"
   currentPage="pricing"
 >
-  <!-- Hero Section -->
-  <section class="hero-section pricing-hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <div class="hero-text">
-        <h1 class="hero-title fade-in-up">
-          <span class="text-primary">Pricing Made Simple</span>
-        </h1>
-        <p class="hero-subtitle fade-in-up stagger-1">
-          Transparent plans, clear choices. Find the perfect solution for your business needs.
-        </p>
+  {/* 1. Hero: type only */}
+  <section class="hero hero--inner">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <h1 class="h-display hero-title">Pricing Made Simple</h1>
+          <p class="lede">
+            Transparent monthly plans. All of them include the core accounting and compliance work.
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Pricing Section -->
-  <section class="pricing-section">
+  {/* 2. Plans */}
+  <section class="section">
     <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Choose Your <span class="text-primary">Plan</span></h2>
-        <p class="section-subtitle">
-          All plans include our core accounting and compliance services
-        </p>
-      </div>
-
       <div class="pricing-grid">
-        <div class="pricing-card">
-          <div class="plan-header">
-            <h3>Starter</h3>
-            <div class="price">
-              <span class="currency">R</span>
-              <span class="amount">1,500</span>
-              <span class="period">/month</span>
-            </div>
-          </div>
-          <ul class="plan-features">
-            <li>Basic bookkeeping</li>
-            <li>Monthly financial statements</li>
-            <li>VAT submissions</li>
-            <li>Email support</li>
-          </ul>
-          <a href="/contact" class="btn btn-outline">Get Started</a>
-        </div>
+        {
+          plans.map((plan, i) => (
+            <article
+              class={`plan${plan.featured ? ' plan--featured' : ''}`}
+              data-reveal
+              style={`--i:${i}`}
+            >
+              {plan.featured && <span class="plan-badge">Most popular</span>}
+              <h2 class="h-card">{plan.name}</h2>
 
-        <div class="pricing-card featured">
-          <div class="popular-badge">Most Popular</div>
-          <div class="plan-header">
-            <h3>Professional</h3>
-            <div class="price">
-              <span class="currency">R</span>
-              <span class="amount">2,500</span>
-              <span class="period">/month</span>
-            </div>
-          </div>
-          <ul class="plan-features">
-            <li>Complete bookkeeping</li>
-            <li>Monthly financial statements</li>
-            <li>VAT & PAYE submissions</li>
-            <li>Income tax returns</li>
-            <li>Business registration support</li>
-            <li>Phone & email support</li>
-          </ul>
-          <a href="/contact" class="btn btn-primary">Get Started</a>
-        </div>
+              <div class="plan-price">
+                <span class="currency">R</span>
+                <span class="amount">{plan.amount}</span>
+                <span class="plan-period">/ month</span>
+              </div>
+              <p class="plan-note">Billed monthly.</p>
 
-        <div class="pricing-card">
-          <div class="plan-header">
-            <h3>Enterprise</h3>
-            <div class="price">
-              <span class="currency">R</span>
-              <span class="amount">4,000</span>
-              <span class="period">/month</span>
-            </div>
-          </div>
-          <ul class="plan-features">
-            <li>Full accounting services</li>
-            <li>Financial statement compilation</li>
-            <li>Complete tax compliance</li>
-            <li>Business administration</li>
-            <li>Tender opportunities</li>
-            <li>Priority support</li>
-            <li>Dedicated account manager</li>
-          </ul>
-          <a href="/contact" class="btn btn-outline">Get Started</a>
-        </div>
+              <ul class="plan-features">
+                {plan.features.map((f) => (
+                  <li>
+                    <Icon name="ph:check" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+
+              <a href="/contact" class={`btn ${plan.featured ? 'btn-primary' : 'btn-secondary'}`}>
+                Talk to us
+              </a>
+            </article>
+          ))
+        }
       </div>
 
-      <!-- Additional Services -->
-      <div class="additional-services">
-        <h3>Additional Services</h3>
-        <div class="services-grid">
-          <div class="service-item">
-            <h4>Social Media Management</h4>
-            <p>R800/month - Professional social media presence across all platforms</p>
-          </div>
-          <div class="service-item">
-            <h4>Website Development</h4>
-            <p>From R5,000 - Custom website design and development</p>
-          </div>
-          <div class="service-item">
-            <h4>Mobile Apps</h4>
-            <p>R500/month - Access to our mobile accounting and HR applications</p>
-          </div>
-        </div>
+      {/* 3. Add-ons: one container, dividers between rows only */}
+      <div class="addons" data-reveal>
+        {
+          addons.map((addon) => (
+            <div class="addon">
+              <div>
+                <h3>{addon.name}</h3>
+                <p>{addon.note}</p>
+              </div>
+              <span class="addon-price">{addon.price}</span>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
 
-  <!-- FAQ Section -->
-  <section class="faq-section">
+  {/* 4. Questions */}
+  <section class="section section--sunk">
     <div class="container">
-      <h2>Frequently Asked Questions</h2>
-      <div class="faq-grid">
-        <div class="faq-item">
-          <h3>What's included in all plans?</h3>
-          <p>All plans include basic bookkeeping, monthly financial statements, and email support. Higher
-            tiers add more comprehensive services.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Can I upgrade my plan?</h3>
-          <p>Yes, you can upgrade or downgrade your plan at any time. Changes take effect at the next
-            billing cycle.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Do you offer custom solutions?</h3>
-          <p>Absolutely! We can tailor our services to meet your specific business requirements. Contact
-            us for a custom quote.</p>
-        </div>
-        <div class="faq-item">
-          <h3>What payment methods do you accept?</h3>
-          <p>We accept bank transfers, debit orders, and credit card payments for your convenience.</p>
-        </div>
+      <div class="section-head">
+        <h2 class="h-section">Questions</h2>
+      </div>
+
+      <div class="faq">
+        {
+          faqs.map((item) => (
+            <details>
+              <summary>
+                {item.q}
+                <Icon name="ph:plus" />
+              </summary>
+              <p>{item.a}</p>
+            </details>
+          ))
+        }
       </div>
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section class="cta-section">
+  {/* 5. Closing CTA */}
+  <section class="section">
     <div class="container">
-      <div class="cta-content">
-        <h2>Ready to Get Started?</h2>
-        <p>Choose your plan and let us help you streamline your business operations today.</p>
-        <div class="cta-buttons">
+      <div class="cta-panel on-accent">
+        <h2 class="h-section">Not sure which plan fits?</h2>
+        <p>
+          Tell us how many entities you run and where your books stand. We will quote against the
+          actual work.
+        </p>
+        <div class="cta-actions">
           <a href="/contact" class="btn btn-primary">
-            Contact Us Today
+            Talk to us
+            <Icon name="ph:arrow-right" />
           </a>
-          <a href="tel:+27721610801" class="btn btn-secondary">
-            Call: 072 161 0801
-          </a>
+          <a href="/products" class="btn btn-secondary">Explore our services</a>
         </div>
       </div>
     </div>

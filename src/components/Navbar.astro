@@ -1,10 +1,14 @@
 ---
+import { Icon } from 'astro-icon/components';
+
 interface Props {
   currentPage: 'home' | 'products' | 'applications' | 'pricing' | 'contact';
 }
 
 const { currentPage } = Astro.props;
 
+// Slugs and labels are unchanged from the previous site: existing links,
+// bookmarks and search results keep working.
 const links = [
   { href: '/', label: 'Home', key: 'home' },
   { href: '/products', label: 'Products', key: 'products' },
@@ -15,42 +19,115 @@ const links = [
 ---
 
 <header class="navbar">
-  <nav class="nav-container">
-    <div class="nav-content">
-      <div class="logo">
-        <a href="/" class="logo-link">
-          <img src="/images/newlogo.png" alt="Hindsight Consulting Logo" class="header-logo" />
-          Hindsight Consulting
-        </a>
-      </div>
+  <div class="nav-inner">
+    <a href="/" class="logo-link" aria-label="Hindsight Online, home">
+      <img
+        src="/images/logo-online.png"
+        alt="Hindsight Online"
+        class="logo-light"
+        width="260"
+        height="240"
+        decoding="async"
+      />
+      <img
+        src="/images/logo-online-dark.png"
+        alt=""
+        aria-hidden="true"
+        class="logo-dark"
+        width="260"
+        height="240"
+        decoding="async"
+      />
+    </a>
 
-      <div class="nav-desktop">
-        {links.map((link) => (
+    <nav class="nav-desktop" aria-label="Primary">
+      {
+        links.map((link) => (
           <a
             href={link.href}
             class={`nav-link${currentPage === link.key ? ' active' : ''}`}
+            aria-current={currentPage === link.key ? 'page' : undefined}
           >
             {link.label}
           </a>
-        ))}
-      </div>
+        ))
+      }
+    </nav>
 
-      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle mobile menu">
-        <span class="hamburger"></span>
-        <span class="hamburger"></span>
-        <span class="hamburger"></span>
+    <div class="nav-actions">
+      <button
+        class="theme-toggle"
+        id="themeToggle"
+        type="button"
+        aria-label="Switch between light and dark theme"
+      >
+        <Icon name="ph:sun" class="icon-sun" />
+        <Icon name="ph:moon" class="icon-moon" />
+      </button>
+
+      <a href="/contact" class="btn btn-primary">Talk to us</a>
+
+      <button
+        class="menu-btn"
+        id="menuBtn"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mobileMenu"
+        aria-label="Open navigation menu"
+      >
+        <Icon name="ph:list" class="icon-menu" />
+        <Icon name="ph:x" class="icon-close" />
       </button>
     </div>
+  </div>
 
-    <div class="nav-mobile" id="mobileMenu">
-      {links.map((link) => (
-        <a
-          href={link.href}
-          class={`nav-link-mobile${currentPage === link.key ? ' active' : ''}`}
-        >
+  <div class="nav-mobile" id="mobileMenu">
+    {
+      links.map((link) => (
+        <a href={link.href} class={currentPage === link.key ? 'active' : undefined}>
           {link.label}
         </a>
-      ))}
-    </div>
-  </nav>
+      ))
+    }
+    <a href="/contact" class="btn btn-primary">Talk to us</a>
+  </div>
 </header>
+
+<script>
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  menuBtn?.addEventListener('click', () => {
+    const open = menuBtn.getAttribute('aria-expanded') === 'true';
+    menuBtn.setAttribute('aria-expanded', String(!open));
+    menuBtn.setAttribute('aria-label', open ? 'Open navigation menu' : 'Close navigation menu');
+    mobileMenu?.classList.toggle('is-open', !open);
+  });
+
+  // Close the menu when the viewport grows past the mobile breakpoint,
+  // otherwise it stays open behind the desktop nav.
+  const wide = window.matchMedia('(min-width: 901px)');
+  wide.addEventListener('change', (e) => {
+    if (!e.matches) return;
+    mobileMenu?.classList.remove('is-open');
+    menuBtn?.setAttribute('aria-expanded', 'false');
+  });
+
+  // Theme toggle. Resolves the current mode from the attribute first and the
+  // system preference second, then writes the opposite.
+  const themeToggle = document.getElementById('themeToggle');
+  themeToggle?.addEventListener('click', () => {
+    const root = document.documentElement;
+    const explicit = root.getAttribute('data-theme');
+    const current =
+      explicit ?? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const next = current === 'dark' ? 'light' : 'dark';
+
+    root.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('hs-theme', next);
+    } catch (e) {
+      /* storage blocked: the choice applies for this page view only */
+    }
+  });
+</script>

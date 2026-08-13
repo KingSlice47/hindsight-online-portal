@@ -4,57 +4,79 @@ const currentYear = new Date().getFullYear();
 
 <footer class="footer">
   <div class="container">
-    <div class="footer-content">
-      <div class="footer-section">
-        <h3 class="footer-title">Hindsight Consulting</h3>
-        <p class="footer-text">
-          Tech-driven financial & compliance solutions for South African SMEs since 2017.
+    <div class="footer-grid">
+      <div>
+        <span class="footer-logo">
+          <img
+            src="/images/logo-online.png"
+            alt="Hindsight Online"
+            class="logo-light"
+            width="260"
+            height="240"
+            loading="lazy"
+            decoding="async"
+          />
+          <img
+            src="/images/logo-online-dark.png"
+            alt=""
+            aria-hidden="true"
+            class="logo-dark"
+            width="260"
+            height="240"
+            loading="lazy"
+            decoding="async"
+          />
+        </span>
+        <p>
+          Tech-driven financial and compliance solutions for South African SMEs since 2017. Part of
+          the Hindsight Consulting group.
         </p>
-        <address class="footer-address">
+        <address style="margin-top:1rem;">
           Unit 1, Randpark Building<br />
           20 Dover Street, Ferndale<br />
           Randburg, South Africa
         </address>
       </div>
 
-      <div class="footer-section">
-        <h3 class="footer-title">Contact</h3>
-        <div class="footer-contact">
-          <p>
-            <span>Email:</span>
-            <a href="mailto:accounts@hindsightonline.co.za">accounts@hindsightonline.co.za</a>
-          </p>
-          <p>
-            <span>Phone:</span>
-            <a href="tel:+27721610801">072 161 0801</a>
-          </p>
+      <div>
+        <h3>Contact</h3>
+        <div class="footer-links">
+          <a href="mailto:accounts@hindsightonline.co.za">accounts@hindsightonline.co.za</a>
+          <a href="tel:+27721610801">072 161 0801</a>
+        </div>
+
+        <h3 style="margin-top:2rem;">Pages</h3>
+        <div class="footer-links">
+          <a href="/products">Products</a>
+          <a href="/applications">Applications</a>
+          <a href="/pricing">Pricing</a>
+          <a href="/contact">Contact</a>
         </div>
       </div>
 
-      <div class="footer-section">
-        <h3 class="footer-title" style="text-align: center;">Follow Us</h3>
-        <div class="social-links">
+      <div>
+        <h3>Follow</h3>
+        <div class="footer-links">
           <a
             href="https://www.linkedin.com/company/hindsight-consulting-pty-ltd/"
             target="_blank"
-            rel="noopener noreferrer"
-            class="social-link">LinkedIn</a>
-          <a
-            href="https://facebook.com/hindsightconsulting"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="social-link">Facebook</a>
+            rel="noopener noreferrer">LinkedIn</a
+          >
+          <a href="https://facebook.com/hindsightconsulting" target="_blank" rel="noopener noreferrer"
+            >Facebook</a
+          >
           <a
             href="https://instagram.com/hindsightconsulting"
             target="_blank"
-            rel="noopener noreferrer"
-            class="social-link">Instagram</a>
+            rel="noopener noreferrer">Instagram</a
+          >
         </div>
       </div>
     </div>
 
     <div class="footer-bottom">
       <p>&copy; 2017 - {currentYear} Hindsight Consulting (Pty) Ltd. All rights reserved.</p>
+      <p>Registered in South Africa</p>
     </div>
   </div>
 </footer>

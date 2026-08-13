@@ -1,110 +1,138 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { Icon } from 'astro-icon/components';
+
+const hours = [
+  { day: 'Monday to Friday', time: '08:00 - 17:00' },
+  { day: 'Saturday', time: '09:00 - 13:00' },
+  { day: 'Sunday', time: 'Closed' },
+];
+
+const MAP_SRC =
+  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3580.8573433697554!2d28.003611!3d-26.115651!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e95743e5b1b7e85%3A0x8c8e52a0f3b3a3a3!2s20%20Dover%20St%2C%20Ferndale%2C%20Randburg%2C%202194%2C%20South%20Africa!5e0!3m2!1sen!2sus!4v1234567890123';
 ---
 
 <BaseLayout
-  title="Contact Us | Hindsight Consulting"
-  description="Get in touch with Hindsight Consulting for professional financial and compliance solutions in South Africa."
+  title="Contact Us | Hindsight Online"
+  description="Get in touch with Hindsight Online for professional financial and compliance solutions in South Africa."
   pageClass="page-contact"
   currentPage="contact"
 >
-  <!-- Hero Section -->
-  <section class="hero-section contact-hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <div class="hero-text">
-        <h1 class="hero-title fade-in-up">
-          Get In <span class="text-primary">Touch</span>
-        </h1>
-        <p class="hero-subtitle fade-in-up stagger-1">
-          Ready to transform your business with our expert financial and compliance solutions?
-          We're here to help you succeed.
-        </p>
+  {/* 1. Hero: type only */}
+  <section class="hero hero--inner">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <h1 class="h-display hero-title">Get In Touch</h1>
+          <p class="lede">
+            Tell us where your books stand today. We will come back to you within one working day.
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <section class="contact-section">
+  {/* 2. Details and form */}
+  <section class="section">
     <div class="container">
       <div class="contact-grid">
-        <!-- Contact Information -->
-        <div class="contact-info">
-          <h2>Contact Information</h2>
+        <div>
+          <div class="contact-list">
+            <div class="contact-item">
+              <Icon name="ph:map-pin" />
+              <div>
+                <h3>Our office</h3>
+                <address>
+                  Unit 1, Randpark Building<br />
+                  20 Dover Street, Ferndale<br />
+                  Randburg, South Africa
+                </address>
+              </div>
+            </div>
 
-          <div class="contact-item">
-            <div class="contact-icon">📍</div>
-            <div class="contact-details">
-              <h3>Our Office</h3>
-              <address>
-                Unit 1, Randpark Building<br />
-                20 Dover Street, Ferndale<br />
-                Randburg, South Africa
-              </address>
+            <div class="contact-item">
+              <Icon name="ph:envelope-simple" />
+              <div>
+                <h3>Email us</h3>
+                <a href="mailto:accounts@hindsightonline.co.za">accounts@hindsightonline.co.za</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <Icon name="ph:phone" />
+              <div>
+                <h3>Call us</h3>
+                <a href="tel:+27721610801">072 161 0801</a>
+              </div>
             </div>
           </div>
 
-          <div class="contact-item">
-            <div class="contact-icon">✉️</div>
-            <div class="contact-details">
-              <h3>Email Us</h3>
-              <a href="mailto:accounts@hindsightonline.co.za">accounts@hindsightonline.co.za</a>
-            </div>
-          </div>
-
-          <div class="contact-item">
-            <div class="contact-icon">📞</div>
-            <div class="contact-details">
-              <h3>Call Us</h3>
-              <a href="tel:+27721610801">072 161 0801</a>
-            </div>
-          </div>
-
-          <!-- Business Hours -->
-          <div class="business-hours">
-            <h3>Business Hours</h3>
-            <div class="hours-grid">
-              <div>Monday - Friday:</div>
-              <div>8:00 AM - 5:00 PM</div>
-              <div>Saturday:</div>
-              <div>9:00 AM - 1:00 PM</div>
-              <div>Sunday:</div>
-              <div>Closed</div>
-            </div>
+          <div class="hours">
+            <h3>Business hours</h3>
+            <dl>
+              {
+                hours.map((h) => (
+                  <>
+                    <dt>{h.day}</dt>
+                    <dd>{h.time}</dd>
+                  </>
+                ))
+              }
+            </dl>
           </div>
         </div>
 
-        <!-- Contact Form -->
-        <div class="contact-form-container">
-          <h2>Send Us a Message</h2>
+        <div class="form-card">
+          <h2 class="h-card" style="margin-bottom:1.5rem;">Send us a message</h2>
 
-          <form class="contact-form" id="contactForm" action="/api/contact" method="POST">
-            <div class="form-group">
-              <label for="name">Full Name *</label>
-              <input type="text" id="name" name="name" required />
+          {/* Field names are fixed by functions/api/contact.js and must not change. */}
+          <form class="form-grid" id="contactForm" action="/api/contact" method="POST" novalidate>
+            <div class="field" data-field="name">
+              <label for="name">Full name</label>
+              <input type="text" id="name" name="name" autocomplete="name" required />
+              <p class="field-error" id="error-name" hidden></p>
             </div>
 
-            <div class="form-group">
-              <label for="email">Email Address *</label>
-              <input type="email" id="email" name="email" required />
+            <div class="field" data-field="email">
+              <label for="email">Email address</label>
+              <input type="email" id="email" name="email" autocomplete="email" required />
+              <p class="field-error" id="error-email" hidden></p>
             </div>
 
-            <div class="form-group">
-              <label for="subject">Subject *</label>
+            <div class="field" data-field="subject">
+              <label for="subject">Subject</label>
               <input type="text" id="subject" name="subject" required />
+              <p class="field-error" id="error-subject" hidden></p>
             </div>
 
-            <div class="form-group">
-              <label for="message">Message *</label>
-              <textarea id="message" name="message" rows="6" required></textarea>
+            <div class="field" data-field="message">
+              <label for="message">Message</label>
+              <span class="hint" id="message-hint">
+                Roughly what you need help with, and how many entities you run.
+              </span>
+              <textarea id="message" name="message" rows="6" aria-describedby="message-hint" required
+              ></textarea>
+              <p class="field-error" id="error-message" hidden></p>
             </div>
 
-            <!-- Hidden honeypot field for spam protection -->
-            <input type="text" name="honeypot" style="display: none;" tabindex="-1" autocomplete="off" />
+            <input
+              type="text"
+              name="honeypot"
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true"
+              style="display:none"
+            />
 
-            <button type="submit" class="btn btn-primary form-submit">
-              Send Message
-              <span class="btn-icon">→</span>
+            <div class="form-status" id="formStatus" role="status" aria-live="polite">
+              <Icon name="ph:check-circle" class="icon-ok" />
+              <Icon name="ph:warning-circle" class="icon-err" />
+              <span id="formStatusText"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary form-submit" id="formSubmit">
+              <span id="formSubmitLabel">Send message</span>
+              <Icon name="ph:arrow-right" />
             </button>
           </form>
         </div>
@@ -112,31 +140,144 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
   </section>
 
-  <!-- Map Section -->
-  <section class="map-section">
+  {/* 3. Location */}
+  <section class="section section--sunk">
     <div class="container">
-      <h2>Find Our Office</h2>
-      <div class="map-container">
+      <div class="section-head">
+        <h2 class="h-section">Find our office</h2>
+      </div>
+
+      <div class="map-frame">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3580.8573433697554!2d28.003611!3d-26.115651!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e95743e5b1b7e85%3A0x8c8e52a0f3b3a3a3!2s20%20Dover%20St%2C%20Ferndale%2C%20Randburg%2C%202194%2C%20South%20Africa!5e0!3m2!1sen!2sus!4v1234567890123"
-          width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade" title="Hindsight Consulting Office Location"
-          aria-label="Map showing the location of Hindsight Consulting at 20 Dover Street, Ferndale, Randburg"
+          src={MAP_SRC}
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Hindsight Online office location"
+          aria-label="Map showing the location of Hindsight Online at 20 Dover Street, Ferndale, Randburg"
         ></iframe>
       </div>
-      <div class="map-info">
+
+      <div class="map-notes">
         <p>
-          <strong>Address:</strong> Unit 1, Randpark Building, 20 Dover Street, Ferndale, Randburg, South Africa
+          <strong>Address.</strong> Unit 1, Randpark Building, 20 Dover Street, Ferndale, Randburg.
         </p>
-        <p>
-          <strong>Parking:</strong> On-site parking available for visitors
-        </p>
-        <p>
-          <strong>Public Transport:</strong> Accessible by taxi and bus routes
-        </p>
+        <p><strong>Parking.</strong> On-site parking available for visitors.</p>
+        <p><strong>Public transport.</strong> Accessible by taxi and bus routes.</p>
       </div>
     </div>
   </section>
-
-  <script is:inline src="/scripts/contact.js"></script>
 </BaseLayout>
+
+<script>
+  const form = document.getElementById('contactForm') as HTMLFormElement | null;
+  const statusBox = document.getElementById('formStatus');
+  const statusText = document.getElementById('formStatusText');
+  const submit = document.getElementById('formSubmit') as HTMLButtonElement | null;
+  const submitLabel = document.getElementById('formSubmitLabel');
+
+  const RULES: Record<string, { message: string; email?: boolean }> = {
+    name: { message: 'Please enter your full name.' },
+    email: { message: 'Please enter your email address.', email: true },
+    subject: { message: 'Please enter a subject.' },
+    message: { message: 'Please enter a message.' },
+  };
+
+  const setFieldError = (field: string, message: string | null) => {
+    const wrap = document.querySelector(`.field[data-field="${field}"]`);
+    const input = document.getElementById(field);
+    const error = document.getElementById(`error-${field}`);
+    if (!wrap || !input || !error) return;
+
+    wrap.classList.toggle('has-error', Boolean(message));
+    input.setAttribute('aria-invalid', message ? 'true' : 'false');
+    if (message) {
+      error.textContent = message;
+      error.hidden = false;
+      input.setAttribute('aria-describedby', `error-${field}`);
+    } else {
+      error.textContent = '';
+      error.hidden = true;
+    }
+  };
+
+  const showStatus = (kind: 'ok' | 'error', message: string) => {
+    if (!statusBox || !statusText) return;
+    statusBox.classList.remove('form-status--ok', 'form-status--error');
+    statusBox.classList.add('is-shown', `form-status--${kind}`);
+    statusText.textContent = message;
+  };
+
+  const clearStatus = () => statusBox?.classList.remove('is-shown');
+
+  const validate = (data: FormData) => {
+    let firstBad: string | null = null;
+    for (const [field, rule] of Object.entries(RULES)) {
+      const value = String(data.get(field) ?? '').trim();
+      let message: string | null = null;
+      if (!value) message = rule.message;
+      else if (rule.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
+        message = 'That email address does not look right.';
+      setFieldError(field, message);
+      if (message && !firstBad) firstBad = field;
+    }
+    return firstBad;
+  };
+
+  // Clear a field's error as soon as the visitor starts fixing it.
+  Object.keys(RULES).forEach((field) => {
+    document.getElementById(field)?.addEventListener('input', () => setFieldError(field, null));
+  });
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    clearStatus();
+
+    const data = new FormData(form);
+    const firstBad = validate(data);
+    if (firstBad) {
+      document.getElementById(firstBad)?.focus();
+      showStatus('error', 'Please correct the highlighted fields and try again.');
+      return;
+    }
+
+    submit?.setAttribute('aria-busy', 'true');
+    if (submitLabel) submitLabel.textContent = 'Sending...';
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(Object.fromEntries(data.entries())),
+      });
+
+      let payload: { success?: boolean; error?: string } = {};
+      try {
+        payload = await response.json();
+      } catch {
+        /* non-JSON response: fall through to the generic message */
+      }
+
+      if (response.ok && payload.success) {
+        form.reset();
+        showStatus(
+          'ok',
+          'Thank you. Your message has been sent and we will reply within one working day.',
+        );
+      } else {
+        showStatus(
+          'error',
+          payload.error ||
+            'We could not send that message. Please try again, or email accounts@hindsightonline.co.za directly.',
+        );
+      }
+    } catch {
+      showStatus(
+        'error',
+        'No connection. Please check your network and try again, or email accounts@hindsightonline.co.za.',
+      );
+    } finally {
+      submit?.removeAttribute('aria-busy');
+      if (submitLabel) submitLabel.textContent = 'Send message';
+    }
+  });
+</script>

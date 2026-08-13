@@ -1,281 +1,354 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { Icon } from 'astro-icon/components';
+
+const HERO_IMG =
+  'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80';
+
+const team = [
+  {
+    name: 'Sipho Mampe',
+    role: 'Chairman / Director',
+    photo: '/images/sipho.jpg',
+    width: 293,
+    height: 450,
+    bio: 'Brings extensive expertise in financial strategy and compliance. Sipho oversees operations and fosters relationships with Hindsight Consulting and its clients.',
+  },
+  {
+    name: 'Dineo Rametsi',
+    role: 'Accountant',
+    photo: '/images/dineo.jpg',
+    width: 450,
+    height: 450,
+    bio: 'A skilled leader in financial management, Dineo drives client account oversight and provides strategic direction to ensure operational excellence.',
+  },
+  {
+    name: 'Dr Palesa Seele',
+    role: 'Non-Executive Director',
+    photo: '/images/dr-seele.jpg',
+    width: 450,
+    height: 450,
+    bio: 'An esteemed academic and researcher with a passion for innovation and technology. A Fellow of Black Woman in Science.',
+  },
+];
+
+const partners = [
+  {
+    name: 'Hindsight Consulting',
+    note: 'Our parent company, and the group we deliver accounting and administration services within.',
+  },
+  {
+    name: 'Tsogang Brands',
+    note: 'Strategic partnership for comprehensive business solutions.',
+  },
+  {
+    name: 'Afrilink Telecoms',
+    note: 'Technology partner for digital solutions and web services.',
+  },
+  {
+    name: 'Afrilink Corporation',
+    note: 'Holding company with a diverse portfolio of services across the SADC region.',
+  },
+];
+
+const stats = [
+  { value: 9, suffix: '', label: 'Years in practice' },
+  { value: 500, suffix: '+', label: 'Clients served' },
+  { value: 6, suffix: '', label: 'Industries served' },
+  { value: 4, suffix: '', label: 'Professional bodies' },
+];
 ---
 
 <BaseLayout
-  title="Hindsight Consulting | Financial & Compliance Solutions for South African SMEs"
+  title="Hindsight Online | Financial & Compliance Solutions for South African SMEs"
   description="Tech-driven financial & compliance solutions for South African SMEs. Accounting, tax services, business administration, and digital solutions since 2017."
   pageClass="page-home"
   currentPage="home"
-  ogTitle="Hindsight Consulting | Financial & Compliance Solutions"
+  ogTitle="Hindsight Online | Financial & Compliance Solutions"
+  preloadImage={HERO_IMG}
 >
-  <!-- Hero Section with Dynamic Transitions -->
-  <section class="hero-section">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <div class="hero-text">
-        <h1 class="hero-title">
-          Welcome to <span class="text-primary">Hindsight Consulting</span>
-        </h1>
-        <p class="hero-subtitle">
-          Tech-driven financial & compliance solutions for South African SMEs.
-        </p>
-        <div class="hero-buttons">
-          <a href="/products" class="btn btn-primary">
-            Explore Our Services
-            <span class="btn-icon">→</span>
-          </a>
-          <a href="/contact" class="btn btn-secondary">
-            Get In Touch
-          </a>
+  {/* 1. Hero: asymmetric split */}
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <h1 class="h-display hero-title">Accounting and compliance, handled.</h1>
+          <p class="lede">
+            Cloud-based accounting, tax and business administration for South African SMEs.
+            Registered, compliant, and run from Randburg since 2017.
+          </p>
+          <div class="hero-actions">
+            <a href="/products" class="btn btn-primary">
+              Explore our services
+              <Icon name="ph:arrow-right" />
+            </a>
+            <a href="/contact" class="btn btn-secondary">Talk to us</a>
+          </div>
+        </div>
+
+        <div class="hero-media">
+          <img
+            src={HERO_IMG}
+            alt="A quiet, glass-partitioned professional office interior"
+            width="1200"
+            height="800"
+            fetchpriority="high"
+            decoding="async"
+          />
         </div>
       </div>
     </div>
   </section>
 
-  <!-- About Section -->
-  <section class="about-section">
+  {/* 2. Credentials: logos only, directly under the hero */}
+  <section class="credentials">
     <div class="container">
-      <div class="section-header fade-in-up">
-        <h2 class="section-title">About <span class="text-primary">Hindsight Consulting</span></h2>
+      <p class="credentials-label">Registered with and certified by</p>
+      <div class="credentials-row">
+        <span class="credential"
+          ><span class="credential-mark">SAIPA</span>
+        </span>
+        <span class="credential">
+          <img
+            src="/images/ciba-logo.png"
+            alt="Chartered Institute of Business Accountants"
+            width="1622"
+            height="1026"
+            loading="lazy"
+            decoding="async"
+          />
+        </span>
+        <span class="credential">
+          <img
+            src="/images/sait-membership-logo.png"
+            alt="South African Institute of Tax Professionals"
+            width="389"
+            height="382"
+            loading="lazy"
+            decoding="async"
+          />
+        </span>
+        <span class="credential">
+          <Icon name="ph:currency-circle-dollar" class="credential-svg" />
+          <span class="credential-mark" style="margin-left:.55rem;">QuickBooks ProAdvisor</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  {/* 3. Services: bento, four cells, four items */}
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="h-section">Accounting, tax and compliance in one place</h2>
+        <p class="body">
+          The work most SMEs would rather not do in-house, run on QuickBooks Online and Draftworx by
+          people who answer the phone.
+        </p>
       </div>
 
-      <div class="about-content">
-        <div class="about-text">
-          <div class="about-story">
-            <div class="story-header">
-              <div class="story-icon">🏢</div>
-              <h3>Our Story</h3>
+      <div class="bento">
+        <article class="bento-cell bento-cell--wide bento-cell--media" data-reveal>
+          <img
+            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80"
+            alt="A laptop showing a financial reporting dashboard"
+            width="900"
+            height="600"
+            loading="lazy"
+            decoding="async"
+          />
+          <Icon name="ph:calculator" class="bento-icon" />
+          <div class="bento-body">
+            <h3 class="h-card">Accounting and bookkeeping</h3>
+            <p>
+              Monthly statements, transaction recording and bank reconciliations, kept current
+              rather than caught up at year end.
+            </p>
+          </div>
+        </article>
+
+        <article class="bento-cell bento-cell--narrow bento-cell--tint" data-reveal style="--i:1">
+          <Icon name="ph:receipt" class="bento-icon" />
+          <div class="bento-body">
+            <h3 class="h-card">Tax and SARS</h3>
+            <p>VAT, PAYE, income tax returns and eFiling support.</p>
+          </div>
+        </article>
+
+        <article class="bento-cell bento-cell--narrow" data-reveal style="--i:2">
+          <Icon name="ph:buildings" class="bento-icon" />
+          <div class="bento-body">
+            <h3 class="h-card">Business administration</h3>
+            <p>CIPC, COIDA, NCR and FSCA registrations and submissions.</p>
+          </div>
+        </article>
+
+        <article class="bento-cell bento-cell--wide bento-cell--media" data-reveal style="--i:3">
+          <img
+            src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80"
+            alt="Two colleagues reviewing printed financial documents at a desk"
+            width="900"
+            height="600"
+            loading="lazy"
+            decoding="async"
+          />
+          <Icon name="ph:file-text" class="bento-icon" />
+          <div class="bento-body">
+            <h3 class="h-card">Financial statements</h3>
+            <p>
+              Annual financial statements and management accounts compiled in Draftworx, ready for
+              your bank, funder or auditor.
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  {/* 4. Story: split, image and prose */}
+  <section class="section section--sunk">
+    <div class="container">
+      <div class="split">
+        <div class="split-media" data-reveal>
+          <img
+            src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=900&q=80"
+            alt="A working meeting around a table with notebooks and documents"
+            width="900"
+            height="720"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+
+        <div>
+          <h2 class="h-section">Founded in Randburg, 2017</h2>
+          <p class="body" style="margin-top:1.25rem;">
+            Hindsight Online is a technology-driven accounting and business administration firm, and
+            part of the Hindsight Consulting group. We deliver tailored financial and compliance
+            solutions to small and medium-sized enterprises, and to clients of our parent company,
+            including Tsogang Brands.
+          </p>
+
+          <div class="split-list">
+            <div class="split-item">
+              <Icon name="ph:cloud-check" />
+              <div>
+                <h3>Cloud-based by default</h3>
+                <p>
+                  QuickBooks Online and Draftworx, so your records are current and reachable from
+                  anywhere.
+                </p>
+              </div>
             </div>
-            <p>
-              Hindsight Consulting (Pty) Ltd is a dynamic, technology-driven accounting and business
-              administration firm based in Randburg, South Africa. Founded in 2017, we specialize in
-              delivering tailored financial and compliance solutions to small and medium-sized enterprises
-              (SMEs) and clients of our strategic partner, Hindsight Consulting, including Tsogang Brands.
-            </p>
-            <p>
-              Our mission is to empower businesses with seamless, cloud-based accounting services, ensuring
-              regulatory compliance and financial clarity. With a vision to become a leading online accounting
-              firm in South Africa, we leverage cutting-edge tools like QuickBooks Online and Draftworx,
-              combined with a client-centric approach, to drive success.
-            </p>
+            <div class="split-item">
+              <Icon name="ph:shield-check" />
+              <div>
+                <h3>Compliance first</h3>
+                <p>
+                  Regulatory deadlines tracked and filed on time, with the paperwork to show for it.
+                </p>
+              </div>
+            </div>
+            <div class="split-item">
+              <Icon name="ph:handshake" />
+              <div>
+                <h3>One point of contact</h3>
+                <p>You deal with the same people every month, not a ticket queue.</p>
+              </div>
+            </div>
           </div>
-        </div>
-
-        <div class="about-image">
-          <div class="office-image">
-            <h4>Modern Office Environment</h4>
-            <p>Our professional workspace in Ferndale, Randburg</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Values Section -->
-      <div class="values-section">
-        <h3>Our Core Values</h3>
-        <div class="values-grid">
-          <div class="value-item">
-            <div class="value-icon">🎯</div>
-            <h4>Precision</h4>
-            <p>Accurate financial solutions every time</p>
-          </div>
-          <div class="value-item">
-            <div class="value-icon">👥</div>
-            <h4>Partnership</h4>
-            <p>Building lasting relationships with clients</p>
-          </div>
-          <div class="value-item">
-            <div class="value-icon">📈</div>
-            <h4>Growth</h4>
-            <p>Driving your business forward</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Company Stats -->
-      <div class="stats-grid">
-        <div class="stat-item fade-in-up stagger-1">
-          <div class="stat-number">7+</div>
-          <div class="stat-label">Years Experience</div>
-        </div>
-        <div class="stat-item fade-in-up stagger-2">
-          <div class="stat-number">500+</div>
-          <div class="stat-label">Clients Served</div>
-        </div>
-        <div class="stat-item fade-in-up stagger-3">
-          <div class="stat-number">6</div>
-          <div class="stat-label">Industries</div>
-        </div>
-        <div class="stat-item fade-in-up stagger-4">
-          <div class="stat-number">2024</div>
-          <div class="stat-label">Online Launch</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Team Section -->
-  <section class="team-section">
+  {/* 5. Team: offset editorial row */}
+  <section class="section">
     <div class="container">
-      <div class="section-header fade-in-up">
-        <h2 class="section-title">Our <span class="text-primary">Team</span></h2>
-        <p class="section-subtitle">
-          Hindsight Online is powered by a dedicated, experienced team committed to delivering exceptional
-          service
+      <div class="section-head">
+        <h2 class="h-section">The people on your account</h2>
+        <p class="body">
+          A small, experienced team. You will know who is doing your work and how to reach them.
         </p>
       </div>
 
-      <div class="team-grid">
-        <div class="team-member fade-in-up stagger-1">
-          <div class="member-photo">
-            <img src="/images/sipho.jpg" alt="Sipho Mampe" class="team-photo" />
-          </div>
-          <h3>Sipho Mampe</h3>
-          <p class="member-role">Chairman / Director</p>
-          <p class="member-description">
-            Brings extensive expertise in financial strategy and compliance. Sipho oversees operations
-            and fosters relationships with Hindsight Consulting and its clients.
-          </p>
-        </div>
-
-        <div class="team-member fade-in-up stagger-2">
-          <div class="member-photo">
-            <img src="/images/dineo.jpg" alt="Dineo Rametsi" class="team-photo" />
-          </div>
-          <h3>Dineo Rametsi</h3>
-          <p class="member-role">Accountant</p>
-          <p class="member-description">
-            A skilled leader in financial management, Dineo drives client account oversight and provides
-            strategic direction to ensure operational excellence.
-          </p>
-        </div>
-
-        <div class="team-member fade-in-up stagger-3">
-          <div class="member-photo">
-            <img src="/images/dr-seele.jpg" alt="Dr Palesa Seele" class="team-photo" />
-          </div>
-          <h3>Dr Palesa Seele</h3>
-          <p class="member-role">Non-Executive Director</p>
-          <p class="member-description">
-            Dr Seele is an esteemed academic and researcher with a passion for innovation and
-            technology. She is a non-executive director of Hindsight Consulting (Pty) Ltd and a Fellow
-            of Black Woman in Science.
-          </p>
-        </div>
+      <div class="team-row">
+        {
+          team.map((member, i) => (
+            <article class="team-member" data-reveal style={`--i:${i}`}>
+              <div class="team-photo">
+                <img
+                  src={member.photo}
+                  alt={member.name}
+                  width={member.width}
+                  height={member.height}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <h3>{member.name}</h3>
+              <p class="team-role">{member.role}</p>
+              <p>{member.bio}</p>
+            </article>
+          ))
+        }
       </div>
     </div>
   </section>
 
-  <!-- Affiliations Section -->
-  <section class="affiliations-section">
+  {/* 6. Partners: horizontal scroll-snap rail */}
+  <section class="section section--sunk">
     <div class="container">
-      <div class="section-header fade-in-up">
-        <h2 class="section-title">Our <span class="text-primary">Affiliations</span></h2>
-        <p class="section-subtitle">
-          Proud members and partners of leading professional organizations
-        </p>
+      <div class="section-head">
+        <h2 class="h-section">Who we work with</h2>
       </div>
 
-      <div class="affiliations-grid">
-        <div class="affiliation-item fade-in-up stagger-1">
-          <div class="affiliation-logo">
-            <div class="logo-placeholder">SAIPA</div>
-          </div>
-          <h3>South African Institute of Professional Accountants</h3>
-          <p>Professional accounting standards and ethics</p>
-        </div>
-
-        <div class="affiliation-item fade-in-up stagger-2">
-          <div class="affiliation-logo">
-            <img src="/images/ciba-logo.png" alt="CIBA" class="affiliation-logo" />
-          </div>
-          <h3>Chartered Institute of Business Accountants</h3>
-          <p>Professional accounting standards and ethics</p>
-        </div>
-
-        <div class="affiliation-item fade-in-up stagger-3">
-          <div class="affiliation-logo">
-            <div class="logo-placeholder">SAIT</div>
-          </div>
-          <h3>South African Institute of Tax Professionals</h3>
-          <p>Professional tax standards and ethics</p>
-        </div>
-
-        <div class="affiliation-item fade-in-up stagger-4">
-          <div class="affiliation-logo">
-            <div class="logo-placeholder">QB</div>
-          </div>
-          <h3>QuickBooks ProAdvisor</h3>
-          <p>Certified QuickBooks specialists</p>
-        </div>
+      <div class="rail">
+        {
+          partners.map((partner, i) => (
+            <article class="rail-item">
+              <span class="rail-index">{String(i + 1).padStart(2, '0')}</span>
+              <h3>{partner.name}</h3>
+              <p>{partner.note}</p>
+            </article>
+          ))
+        }
       </div>
     </div>
   </section>
 
-  <!-- Partners Section -->
-  <section class="partners-section">
-    <div class="container">
-      <div class="section-header fade-in-up">
-        <h2 class="section-title">Our <span class="text-primary">Partners</span></h2>
-        <p class="section-subtitle">
-          Strategic partnerships that enhance our service delivery
-        </p>
-      </div>
-
-      <div class="partners-grid">
-        <div class="partner-item fade-in-up stagger-1">
-          <div class="partner-logo">
-            <div class="logo-placeholder">Hindsight</div>
+  {/* 7. Stats: plain band, mono numerals, no card chrome */}
+  <section class="container">
+    <div class="stat-band">
+      {
+        stats.map((stat) => (
+          <div>
+            <div class="stat-value" data-count={stat.value} data-suffix={stat.suffix}>
+              {stat.value}
+              {stat.suffix}
+            </div>
+            <div class="stat-label">{stat.label}</div>
           </div>
-          <h3>Hindsight Online</h3>
-          <p>Our Online Accounting and Business Administration Services Partner</p>
-        </div>
-
-        <div class="partner-item fade-in-up stagger-2">
-          <div class="partner-logo">
-            <div class="logo-placeholder">Tsogang</div>
-          </div>
-          <h3>Tsogang Brands</h3>
-          <p>Strategic partnership for comprehensive business solutions</p>
-        </div>
-
-        <div class="partner-item fade-in-up stagger-3">
-          <div class="partner-logo">
-            <div class="logo-placeholder">Afrilink</div>
-          </div>
-          <h3>Afrilink Telecoms</h3>
-          <p>Technology partner for digital solutions and web services</p>
-        </div>
-
-        <div class="partner-item fade-in-up stagger-4">
-          <div class="partner-logo">
-            <div class="logo-placeholder">Afrilink Corporation</div>
-          </div>
-          <h3>Afrilink Corporation</h3>
-          <p>Holding Company invloved in a diverse portfolio of services across the SADC region</p>
-        </div>
-      </div>
+        ))
+      }
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section class="cta-section">
+  {/* 8. Closing CTA */}
+  <section class="section">
     <div class="container">
-      <div class="cta-content">
-        <h2>Introducing Hindsight Online</h2>
+      <div class="cta-panel on-accent">
+        <h2 class="h-section">One platform for accounting, HR and admin</h2>
         <p>
-          Our comprehensive digital platform offering accounting, HR, and business management
-          solutions designed specifically for South African SMEs.
+          Our digital platform brings accounting, HR and business management together, built for
+          South African SMEs.
         </p>
-        <div class="cta-buttons">
-          <a href="/products" class="btn btn-primary">
-            Discover Our Products
-            <span class="btn-icon">→</span>
+        <div class="cta-actions">
+          <a href="/contact" class="btn btn-primary">
+            Talk to us
+            <Icon name="ph:arrow-right" />
           </a>
-          <a href="/pricing" class="btn btn-secondary">
-            View Pricing
-            <span class="btn-icon">→</span>
-          </a>
+          <a href="/pricing" class="btn btn-secondary">View pricing</a>
         </div>
       </div>
     </div>

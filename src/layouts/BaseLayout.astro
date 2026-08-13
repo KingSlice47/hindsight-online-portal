@@ -1,4 +1,8 @@
 ---
+import '@fontsource-variable/geist';
+import '@fontsource-variable/geist-mono';
+import '../styles/app.css';
+
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import StickyCTA from '../components/StickyCTA.astro';
@@ -10,35 +14,72 @@ interface Props {
   currentPage: 'home' | 'products' | 'applications' | 'pricing' | 'contact';
   ogTitle?: string;
   ogDescription?: string;
+  /** Absolute-from-root path of the LCP image, preloaded when present. */
+  preloadImage?: string;
 }
 
-const {
-  title,
-  description,
-  pageClass,
-  currentPage,
-  ogTitle,
-  ogDescription,
-} = Astro.props;
+const { title, description, pageClass, currentPage, ogTitle, ogDescription, preloadImage } =
+  Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="author" content="Hindsight Consulting (Pty) Ltd" />
-    <link rel="icon" type="image/png" href="/images/newlogo-site-tag.png" />
+    <meta name="author" content="Hindsight Online" />
+    <link rel="canonical" href={canonical} />
+
+    {/* Generated icon set. The files live in public/Favicon/, so the paths are
+        scoped to that folder rather than the site root. */}
+    <link rel="apple-touch-icon" sizes="57x57" href="/Favicon/apple-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="/Favicon/apple-icon-60x60.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/Favicon/apple-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/Favicon/apple-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/Favicon/apple-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/Favicon/apple-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/Favicon/apple-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/Favicon/apple-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/Favicon/apple-icon-180x180.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/Favicon/android-icon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/Favicon/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/Favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/Favicon/favicon-16x16.png" />
+    <link rel="shortcut icon" href="/Favicon/favicon.ico" />
+    <link rel="manifest" href="/Favicon/manifest.json" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="msapplication-TileImage" content="/Favicon/ms-icon-144x144.png" />
 
     <meta property="og:title" content={ogTitle ?? title} />
     <meta property="og:description" content={ogDescription ?? description} />
     <meta property="og:type" content="website" />
-
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Hindsight Online" />
+    <meta property="og:image" content={new URL('/Favicon/ms-icon-310x310.png', Astro.site)} />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <link rel="stylesheet" href="/styles/main.css" />
+    {preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
+
+    <meta name="theme-color" content="#f7f7f4" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f120c" media="(prefers-color-scheme: dark)" />
+
+    {/* Applied before first paint so the chosen theme never flashes. */}
+    <script is:inline>
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        try {
+          var saved = localStorage.getItem('hs-theme');
+          if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+        } catch (e) {
+          /* storage blocked: fall back to the system preference */
+        }
+      })();
+    </script>
   </head>
 
   <body class={pageClass}>
@@ -54,6 +95,77 @@ const {
 
     <StickyCTA />
 
-    <script is:inline src="/scripts/main.js"></script>
+    <script>
+      // Reveal on scroll. IntersectionObserver only: no scroll listeners
+      // anywhere on this site (skill 5.D).
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const revealables = document.querySelectorAll('[data-reveal]');
+
+      if (reduced) {
+        revealables.forEach((el) => el.classList.add('is-visible'));
+      } else if ('IntersectionObserver' in window) {
+        const revealer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add('is-visible');
+              revealer.unobserve(entry.target);
+            });
+          },
+          { rootMargin: '0px 0px -12% 0px', threshold: 0.1 },
+        );
+        revealables.forEach((el) => revealer.observe(el));
+      } else {
+        revealables.forEach((el) => el.classList.add('is-visible'));
+      }
+
+      // Navbar border appears once the page has moved off the top. A one-pixel
+      // sentinel is observed instead of listening to scroll.
+      const navbar = document.querySelector('.navbar');
+      const sentinel = document.createElement('div');
+      sentinel.setAttribute('aria-hidden', 'true');
+      sentinel.style.cssText = 'position:absolute;top:0;height:1px;width:1px;pointer-events:none;';
+      document.body.prepend(sentinel);
+
+      if ('IntersectionObserver' in window && navbar) {
+        new IntersectionObserver(
+          ([entry]) => navbar.classList.toggle('is-stuck', !entry.isIntersecting),
+          { threshold: 0 },
+        ).observe(sentinel);
+      }
+
+      // Count-up on the stat band, triggered by visibility.
+      const stats = document.querySelectorAll<HTMLElement>('[data-count]');
+      if (stats.length && !reduced && 'IntersectionObserver' in window) {
+        const counter = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              const el = entry.target as HTMLElement;
+              counter.unobserve(el);
+
+              const target = Number(el.dataset.count);
+              const suffix = el.dataset.suffix ?? '';
+              if (!Number.isFinite(target)) return;
+
+              const duration = 1100;
+              let start: number | null = null;
+
+              const step = (now: number) => {
+                if (start === null) start = now;
+                const progress = Math.min((now - start) / duration, 1);
+                // ease-out-cubic
+                const eased = 1 - Math.pow(1 - progress, 3);
+                el.textContent = Math.round(target * eased) + suffix;
+                if (progress < 1) requestAnimationFrame(step);
+              };
+              requestAnimationFrame(step);
+            });
+          },
+          { threshold: 0.5 },
+        );
+        stats.forEach((el) => counter.observe(el));
+      }
+    </script>
   </body>
 </html>

@@ -1,108 +1,148 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { Icon } from 'astro-icon/components';
+
+// Status is a typed value so the badge styling can never contradict the wording.
+// The previous build gave the "Coming Soon" HR product the available styling.
+const STATUS = {
+  live: { label: 'Available now', className: 'status--live' },
+  soon: { label: 'Coming soon', className: 'status--soon' },
+  building: { label: 'In development', className: 'status--soon' },
+} as const;
+
+const apps = [
+  {
+    title: 'Web Based Accounting App',
+    icon: 'ph:device-mobile',
+    blurb: 'Manage your finances on the go with our comprehensive accounting solution.',
+    features: [
+      'Real-time expense tracking',
+      'Invoice generation',
+      'Bank reconciliation',
+      'Financial reporting',
+    ],
+    status: STATUS.live,
+    lead: true,
+  },
+  {
+    title: 'HR Management System',
+    icon: 'ph:users-three',
+    blurb: 'Streamline your human resources processes with our integrated HR platform.',
+    features: [
+      'Employee onboarding',
+      'Payroll management',
+      'Leave management',
+      'Performance tracking',
+    ],
+    status: STATUS.soon,
+    lead: false,
+  },
+  {
+    title: 'Business Intelligence Dashboard',
+    icon: 'ph:chart-line',
+    blurb: 'Make data-driven decisions with our analytics and reporting tools.',
+    features: ['Real-time dashboards', 'Custom reports', 'Performance metrics', 'Trend analysis'],
+    status: STATUS.soon,
+    lead: false,
+  },
+  {
+    title: 'Integration Platform',
+    icon: 'ph:arrows-clockwise',
+    blurb: 'Connect all your business tools with our integration platform.',
+    features: [
+      'API connections',
+      'Data synchronisation',
+      'Automated workflows',
+      'Third-party integrations',
+    ],
+    status: STATUS.building,
+    lead: false,
+  },
+];
 ---
 
 <BaseLayout
-  title="Applications | Hindsight Consulting"
+  title="Applications | Hindsight Online"
   description="Explore our software applications and digital solutions designed for South African SMEs."
   pageClass="page-applications"
   currentPage="applications"
 >
-  <!-- Hero Section -->
-  <section class="hero-section applications-hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <div class="hero-text">
-        <h1 class="hero-title fade-in-up">
-          Our <span class="text-primary">Applications</span>
-        </h1>
-        <p class="hero-subtitle fade-in-up stagger-1">
-          Cutting-edge software solutions designed to streamline your business operations and drive growth.
+  {/* 1. Hero: type only */}
+  <section class="hero hero--inner">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <h1 class="h-display hero-title">Our Applications</h1>
+          <p class="lede">
+            Software we run alongside your accounting, so the numbers and the admin stay in one
+            place.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* 2. Four apps, four cells */}
+  <section class="section">
+    <div class="container">
+      <div class="app-grid">
+        {
+          apps.map((app, i) => (
+            <article
+              class={`app-tile${app.lead ? ' app-tile--lead' : ''}`}
+              data-reveal
+              style={`--i:${i}`}
+            >
+              <Icon name={app.icon} class="app-icon" />
+              <h2 class="h-card">{app.title}</h2>
+              <p>{app.blurb}</p>
+
+              <ul class="app-features">
+                {app.features.map((f) => (
+                  <li>{f}</li>
+                ))}
+              </ul>
+
+              <span class={`status ${app.status.className}`}>{app.status.label}</span>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* 3. Supporting image band */}
+  <section class="section section--sunk">
+    <div class="container">
+      <div class="map-frame">
+        <img
+          src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1400&q=80"
+          alt="A bright office workspace beside a window, with a laptop and notebook"
+          width="1400"
+          height="613"
+          loading="lazy"
+          decoding="async"
+          style="width:100%;height:100%;object-fit:cover;"
+        />
+      </div>
+    </div>
+  </section>
+
+  {/* 4. Closing CTA */}
+  <section class="section">
+    <div class="container">
+      <div class="cta-panel on-accent">
+        <h2 class="h-section">Want a walkthrough?</h2>
+        <p>
+          We will show you the accounting app running against a real set of books, not a demo
+          account.
         </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Applications Section -->
-  <section class="applications-section">
-    <div class="container">
-      <div class="applications-grid">
-        <div class="application-card fade-in-up stagger-1">
-          <div class="application-icon">📱</div>
-          <h3>Web Based Accounting App</h3>
-          <p>Manage your finances on the go with our comprehensive accounting solution.</p>
-          <ul class="application-features">
-            <li>Real-time expense tracking</li>
-            <li>Invoice generation</li>
-            <li>Bank reconciliation</li>
-            <li>Financial reporting</li>
-          </ul>
-          <div class="application-status">
-            <span class="status-badge available">Available Now</span>
-          </div>
-        </div>
-
-        <div class="application-card fade-in-up stagger-2">
-          <div class="application-icon">👥</div>
-          <h3>HR Management System</h3>
-          <p>Streamline your human resources processes with our integrated HR platform.</p>
-          <ul class="application-features">
-            <li>Employee onboarding</li>
-            <li>Payroll management</li>
-            <li>Leave management</li>
-            <li>Performance tracking</li>
-          </ul>
-          <div class="application-status">
-            <span class="status-badge available">Coming Soon</span>
-          </div>
-        </div>
-
-        <div class="application-card fade-in-up stagger-3">
-          <div class="application-icon">📊</div>
-          <h3>Business Intelligence Dashboard</h3>
-          <p>Make data-driven decisions with our powerful analytics and reporting tools.</p>
-          <ul class="application-features">
-            <li>Real-time dashboards</li>
-            <li>Custom reports</li>
-            <li>Performance metrics</li>
-            <li>Trend analysis</li>
-          </ul>
-          <div class="application-status">
-            <span class="status-badge coming-soon">Coming Soon</span>
-          </div>
-        </div>
-
-        <div class="application-card fade-in-up stagger-4">
-          <div class="application-icon">🔄</div>
-          <h3>Integration Platform</h3>
-          <p>Connect all your business tools seamlessly with our integration platform.</p>
-          <ul class="application-features">
-            <li>API connections</li>
-            <li>Data synchronization</li>
-            <li>Automated workflows</li>
-            <li>Third-party integrations</li>
-          </ul>
-          <div class="application-status">
-            <span class="status-badge development">In Development</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA Section -->
-  <section class="cta-section">
-    <div class="container">
-      <div class="cta-content">
-        <h2>Ready to Transform Your Business?</h2>
-        <p>Discover how our applications can streamline your operations and boost productivity.</p>
-        <div class="cta-buttons">
+        <div class="cta-actions">
           <a href="/contact" class="btn btn-primary">
-            Get Started Today
+            Talk to us
+            <Icon name="ph:arrow-right" />
           </a>
-          <a href="/pricing" class="btn btn-secondary">
-            View Pricing
-          </a>
+          <a href="/pricing" class="btn btn-secondary">View pricing</a>
         </div>
       </div>
     </div>
