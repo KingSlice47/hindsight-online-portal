@@ -1,57 +1,52 @@
+name: Deploy to cPanel over FTP
 
-name: 🚀 Deploy Static Website to cPanel
+# Kept as a manual fallback for the cPanel host, NOT as the main pipeline.
+#
+# Production is Cloudflare Pages, which builds every push to main on its own.
+# This workflow used to run on push too, which meant two pipelines publishing
+# the same domain. It also predated the Astro conversion: it copied *.html
+# from the repo root along with styles/, scripts/ and Images/, none of which
+# have existed since 4b27e50, so it has failed on every push since then.
+#
+# Two things this host cannot do, so do not treat it as equivalent to Pages:
+#   - public/_headers is a Cloudflare convention. Apache ignores it, so the
+#     security and caching headers are silently lost.
+#   - functions/api/contact.js is a Pages Function. There is no runtime for it
+#     here, so POST /api/contact returns 404 and the contact form cannot send.
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+
 jobs:
-  FTP-Deploy-Action:
-    name: 🎉 Deploy
+  deploy:
+    name: Build and upload
     runs-on: ubuntu-latest
     steps:
-      - name: 🚚 Get latest code
+      - name: Check out the repository
         uses: actions/checkout@v4
-        
-      - name: 📝 Prepare files for deployment
-        run: |
-          # The website is now static, so we can deploy files directly.
-          # No build step is necessary.
-          # We'll create a 'deploy' directory to gather all necessary files.
-          mkdir deploy
-          # Copy all HTML files
-          cp *.html deploy/
-          # Copy styles, scripts, and images folders
-          if [ -d "styles" ]; then cp -r styles deploy/; fi
-          if [ -d "scripts" ]; then cp -r scripts deploy/; fi
-          if [ -d "Images" ]; then cp -r Images deploy/; fi
-          # Copy .htaccess from public
-          if [ -f "public/.htaccess" ]; then
-            cp public/.htaccess deploy/
-          fi
-          echo "✅ Files prepared for deployment in 'deploy' directory."
-          echo "Contents of deploy directory:"
-          ls -la deploy
-          
-      - name: 📂 Sync files to server
-        if: success()
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build the static site
+        run: npm run build
+
+      - name: Upload dist/ to the server
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./deploy/
+          local-dir: ./dist/
           server-dir: ./
           exclude: |
             **/.git*
             **/.git*/**
             **/node_modules/**
             **/.DS_Store
-            README.md
-            .github/**
           dangerous-clean-slate: false
-          
-      - name: 🔍 Post-deployment verification
-        if: success()
-        run: |
-          echo "✅ Deployment completed successfully"
-          echo "🌐 Your website should now be accessible via your domain"

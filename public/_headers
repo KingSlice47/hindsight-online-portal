@@ -6,12 +6,17 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=()
 
-# Aggressively cache static assets (filenames change so this is safe)
+# Astro's build output. Every filename here carries a content hash, so a
+# changed file is always a changed URL and caching forever is safe. This
+# covers the stylesheet and the Geist woff2 subsets.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Hand-managed assets. These filenames are stable, so a one-year immutable
+# cache would strand visitors on an old logo until it expired. A week is
+# long enough to be useful and short enough to recover from.
 /images/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=604800
 
-/styles/*
-  Cache-Control: public, max-age=31536000, immutable
-
-/scripts/*
-  Cache-Control: public, max-age=31536000, immutable
+/Favicon/*
+  Cache-Control: public, max-age=604800
